@@ -1,10 +1,10 @@
-PWD /home/victor/Documentos/Latex
+PWD /home/victor/Documentos/Latex/Curriculum Vitae/Inglés
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/victor/Documentos/Latex/cv.tex
-OUTPUT cv.log
+INPUT /home/victor/Documentos/Latex/Curriculum Vitae/Inglés/cv (English).tex
+OUTPUT cv (English).log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -681,10 +681,10 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/t1bch.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/t1bch.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/psnfss/t1bch.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/bitstrea/charter/bchr8t.tfm
-INPUT ./cv.aux
-INPUT cv.aux
-INPUT cv.aux
-OUTPUT cv.aux
+INPUT ./cv (English).aux
+INPUT cv (English).aux
+INPUT cv (English).aux
+OUTPUT cv (English).aux
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -727,7 +727,7 @@ INPUT /usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.st
 INPUT /usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-OUTPUT cv.pdf
+OUTPUT cv (English).pdf
 INPUT /usr/share/texmf/tex/latex/lm/ot1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ot1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ot1lmr.fd
@@ -773,7 +773,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/bitstrea/charter/bchb8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/bitstrea/charter/bchb8r.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/bitstrea/charter/bchb8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/bitstrea/charter/bchb8r.tfm
-INPUT cv.aux
+INPUT cv (English).aux
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb

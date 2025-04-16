@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1744757862 "/home/victor/Documentos/Latex/cv.tex" "cv.pdf" "cv" 1744757862
+["pdflatex"] 1744763854 "/home/victor/Documentos/Latex/Curriculum Vitae/Inglés/cv (English).tex" "cv (English).pdf" "cv (English)" 1744763855
   "/etc/texmf/web2c/texmf.cnf" 1720890033 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/victor/Documentos/Latex/cv.tex" 1744757861 8890 71e2bded1d605e19724a5296cf2c543e ""
+  "/home/victor/Documentos/Latex/Curriculum Vitae/Inglés/cv (English).tex" 1744763854 8968 5f161b555f5d9c3982e0203940b0e036 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/bitstrea/charter/bchb8r.tfm" 1136768653 5184 4fd08a9613e75c1da82714d79cf8b4f1 ""
@@ -112,9 +112,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1721096275 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1721096315 2800762 67a38fb1ee3781776b75a7b66f5bd147 ""
-  "cv.aux" 1744757862 2504 a565c6ef3970abaefa6bb94f3d4e0ac3 "pdflatex"
-  "cv.tex" 1744757861 8890 71e2bded1d605e19724a5296cf2c543e ""
+  "cv (English).aux" 1744763855 2504 a565c6ef3970abaefa6bb94f3d4e0ac3 "pdflatex"
+  "cv (English).tex" 1744763854 8968 5f161b555f5d9c3982e0203940b0e036 ""
   (generated)
-  "cv.aux"
-  "cv.log"
-  "cv.pdf"
+  "cv (English).aux"
+  "cv (English).log"
+  "cv (English).pdf"
