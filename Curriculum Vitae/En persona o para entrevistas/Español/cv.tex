@@ -1,0 +1,47 @@
+% !TEX TS-program = lualatex
+% Awesome Source CV LaTeX Template
+%
+% This template has been downloaded from:
+% https://github.com/darwiin/awesome-neue-latex-cv
+%
+% Author:
+% Christophe Roger (Darwiin)
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+
+\documentclass[localFont,alternative]{yaac-another-awesome-cv}
+\name{Victor Gabriel}{Vazquez Montes}
+\tagline{Estudiante de Actuaría}
+\photo{2.5cm}{imagen}
+\socialinfo{
+	\linkedin{christopheroger}
+	%\github{darwiin}\\ Igual voy a eliminar el linked In
+	\smartphone{+229 243 9690}
+	\email{victorgvm2005@gmail.com}\\
+	\address{Casas Palenque, Xana II, Av. Beel no. 144 int 32}\\
+	\infos{Nacido el 8 de Septiembre de 2005 (19 años) en México, Veracruz,Ver}
+}
+
+\begin{document}
+
+	\makecvheader
+
+	% Voy a eliminar el pie de página, debido a que no es necesario si solo tengo una hoja
+
+	%\makecvfooter
+		%{\textsc{\today}} % \selectlanguage{english}\today
+		%{\textsc{Victor Gabriel Vazquez Montes}}
+		%{\thepage}
+
+	\input{section_headline}
+	\input{section_competences}				% Section compétence
+	%\input{section_experience_short}		% Section expérience
+	\input{section_langues}					% Section langues
+	\input{section_scolarite}				% Section scholarité
+	%\input{section_interets}				% Section intérêts
+	%\input{section_projets}
+	%\input{section_references} 				% Section références
+
+
+\end{document}
