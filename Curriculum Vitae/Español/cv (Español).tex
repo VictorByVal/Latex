@@ -35,7 +35,7 @@
 \usepackage{needspace} % for avoiding page brake right after the section title
 \usepackage{iftex} % check if engine is pdflatex, xetex or luatex
 \usepackage{url} % for url management
-\usepackage{babel} % for language support
+\usepackage[spanish]{babel} % for language support
 % Ensure that generate pdf is machine readable/ATS parsable:
 \ifPDFTeX
     \input{glyphtounicode}
@@ -141,7 +141,7 @@
         \LenToUnit{\paperwidth-2 cm-0 cm+0.05cm},
         \LenToUnit{\paperheight-1.0 cm}
     ){\vtop{{\null}\makebox[0pt][c]{
-        \small\color{gray}\textit{Actualizado por última vez en Abril 2024}\hspace{\widthof{Last updated in September 2024}}
+        \small\color{gray}\textit{Actualizado al \today}\hspace{\widthof{Last updated in September 2024}}
     }}}%
   }%
 }%
@@ -162,13 +162,15 @@
     \newsavebox\ANDbox
     \sbox\ANDbox{$|$}
 
+    \placelastupdatedtext % add the last updated text to the page
+
     \begin{header}
         \fontsize{25 pt}{25 pt}\selectfont Victor Gabriel Vazquez Montes
 
         \vspace{5 pt}
 
         \normalsize
-        \mbox{Veracruz, Ver}%
+        \mbox{México, Veracruz, Ver}%
         \kern 5.0 pt%
         \AND%
         \kern 5.0 pt%
@@ -193,18 +195,21 @@
     \section{Acerca de Mi}
 
         \begin{onecolentry}
-            Soy estudiante de actuaría en la Universidad Cristóbal Colón, con un enfoque en el análisis de datos y la programación. 
+            Soy estudiante de actuaría en la Universidad Cristóbal Colón, con un enfoque en el análisis de datos, la programación y el sector financiero. Estoy entusiasmado por aplicar mis habilidades en un entorno profesional. Me considero una persona proactiva, con capacidad de adaptación y aprendizaje rápido. Busco oportunidades para crecer y contribuir al éxito de un equipo.
         \end{onecolentry}
 
     \section{Habilidades}
 
         \begin{onecolentry}
             \textbf{Programación:} Python, VBA, R \end{onecolentry}
+                \begin{highlights}
+                    \item Algunas librerías que sé emplear son: Numpy, Pandas, Matplotlib, Seaborn. 
+                \end{highlights}
 
         \vspace{0.2 cm}
 
         \begin{onecolentry}
-            \textbf{Software:} Excel (Nivel Intermedio-Avanzado), Paquetería de Office, 
+            \textbf{Software:} Excel (Nivel Intermedio-Avanzado), Paquetería de Office, SQL, R Studio, Google Collab, Anaconda (Jupyter Notebooks), Power Point (Nivel Avanzado), LaTeX. 
         \end{onecolentry}
 
         \vspace{0.2 cm}
@@ -235,6 +240,23 @@
             %\end{highlights}
         %\end{onecolentry}
 
+    %\section{Proyectos}
+        
+        %\begin{twocolentry}{
+           %June 2005 – Aug 2007
+        %}
+            %textbf{Software Engineer}, Apple -- Cupertino, CA\end{twocolentry}
+
+        %\vspace{0.10 cm}
+        %\begin{onecolentry}
+            %\begin{highlights}
+                %\item Reduced time to render user buddy lists by 75\% by implementing a prediction algorithm
+                %\item Integrated iChat with Spotlight Search by creating a tool to extract metadata from saved chat transcripts and provide metadata to a system-wide search database
+                %\item Redesigned chat file format and implemented backward compatibility for search
+            %\end{highlights}
+        %\end{onecolentry}
+
+    
     \section{Educación}
         
         \begin{twocolentry}{
