@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1744830161 "/home/victor/Documentos/Latex/Curriculum Vitae/En persona o para entrevistas/Español/cv.tex" "cv.pdf" "cv" 1744830161
+["pdflatex"] 1744920048 "/home/victor/Documentos/Latex/Curriculum Vitae/En persona o para entrevistas/Español/cv.tex" "cv.pdf" "cv" 1744920048
   "/etc/texmf/web2c/texmf.cnf" 1720890033 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/victor/Documentos/Latex/Curriculum Vitae/En persona o para entrevistas/Español/cv.tex" 1744830160 1387 16f77cb5d1e392fe38211b61e4457852 ""
+  "/home/victor/Documentos/Latex/Curriculum Vitae/En persona o para entrevistas/Español/cv.tex" 1744918689 1394 bbb7e4246768f69e93352f85b5ad701b ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf" 1622145181 26965 3b6d1655ad716f98e788b1fb9f2e87b8 ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty" 1643231327 147419 2058c0f5e6893b19c8f3ce95d177646c ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def" 1643231327 5233 d5e383ed66bf272b71b1a90b596e21c6 ""
@@ -19,9 +19,9 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1721096315 2800762 67a38fb1ee3781776b75a7b66f5bd147 ""
-  "cv.aux" 1744830161 32 3985256e7290058c681f74d7a3565a19 ""
-  "cv.tex" 1744830160 1387 16f77cb5d1e392fe38211b61e4457852 ""
-  "yaac-another-awesome-cv.cls" 1744829941 12608 1cbde5d8d8257f08b9b5a71a423ce241 ""
+  "cv.aux" 1744920048 32 3985256e7290058c681f74d7a3565a19 ""
+  "cv.tex" 1744918689 1394 bbb7e4246768f69e93352f85b5ad701b ""
+  "yaac-another-awesome-cv.cls" 1744920048 12657 8760cbcf40007d7b702fb1c175806a31 ""
   (generated)
   "cv.log"
   "cv.pdf"

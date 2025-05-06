@@ -73,6 +73,7 @@
 \RequirePackage{tikz}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage{fancyhdr}
+\RequirePackage{qrcode}
 
 
 \DeclareUnicodeCharacter{00E9}{\'{e}}
@@ -244,41 +245,28 @@
 
 % Render author's mobile phone (optional)
 % Usage: \smartphone{<mobile phone number>}
-\newcommand*\smartphone[1]{\socialtext{\mobileSymbol}{#1}}    
+\newcommand*\smartphone[1]{\socialtext{\mobileSymbol}{#1}} 
 
 % Render author's tagline
-\newcommand\resumetitle[1]{
-  \ifundef{\@alternative}{
-	 \par{
-	 	 \bigskip\center{\Large \color{accentcolor}\textbf{#1}\color{Black}}\par
-	 }
-	 \bigskip
-  }{
-    \color{accentcolor}\textbf{\large{#1}}\color{black}
-  }
-}
-
-\newcommand\idphoto{
-  \tikz\path[fill overzoom image={\@photo}]circle[radius=0.5\linewidth];
-}
-
-% Define social entries to print in header
-\newcommand{\socialinfo}[1]{\def\@socialinfo{#1}}
-
-% Render CV header
-% Needs \@firstname, \@lastname and \@tagline to be defined
 \newcommand*{\makecvheader}{
   \ifundef{\@alternative}{
     \ifundef{\@photodiameter}{
       \begin{minipage}{\linewidth}
     }{
-      \begin{minipage}{\dimexpr\linewidth-\@photodiameter-2em}
+      \begin{minipage}{\dimexpr\linewidth-\@photodiameter-4em}
     }
     \color{accentcolor}\user{\@firstname}{\@lastname}\color{black}\\
     \small{\@socialinfo}
     \end{minipage}
     \ifdef{\@photodiameter}{
-      \begin{minipage}{\@photodiameter}
+      \hfill
+      \begin{minipage}{2cm} % Espacio para el código QR
+        \centering
+        \qrcode{https://linktr.ee/victor_gvm}
+      \end{minipage}
+      \hfill
+      \begin{minipage}{\@photodiameter} % Espacio para la imagen
+        \centering
         \idphoto
       \end{minipage}
     }{}
@@ -287,7 +275,7 @@
     \ifundef{\@photodiameter}{
       \begin{minipage}{\linewidth}
     }{
-      \begin{minipage}{\dimexpr\linewidth-\@photodiameter-2em}
+      \begin{minipage}{\dimexpr\linewidth-\@photodiameter-4em}
     }
     \user{\@firstname}{\@lastname}\\
     \resumetitle{\@tagline}
@@ -295,13 +283,23 @@
     \small{\@socialinfo}
     \end{minipage}
     \ifdef{\@photodiameter}{
-      \begin{minipage}{\@photodiameter}
+      \hfill
+      \begin{minipage}{2cm} % Espacio para el código QR
+        \centering
+        \qrcode{https://linktr.ee/victor_gvm}
+      \end{minipage}
+      \hfill
+      \begin{minipage}{\@photodiameter} % Espacio para la imagen
+        \centering
         \idphoto
       \end{minipage}
     }{}
     \bigskip
   }
 }
+
+% Define social entries to print in header
+\newcommand{\socialinfo}[1]{\def\@socialinfo{#1}}
 
 % Define a footer for CV
 % Usage: \makecvfooter{<left>}{<center>}{<right>}
