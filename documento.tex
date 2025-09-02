@@ -1,0 +1,41 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin = 1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+
+% Configuraciones adicionales 
+
+\decimalpoint % Para que renderice de manera correcta los puntos decimales como punto y no coma
+
+
+\begin{document}
+
+    \section{Problemas de Ecuaciones Diferenciales para Repasar}
+
+	\begin{enumerate}
+		\item Un tanque de agua con una capacidad de $15 m^3$ esta inicialmente vacío, se abre una llave que vierte agua en el tanque a una tasa constante de $0.8 m^3$ por minuto. Debido a una fuga el agua sale del tanque a una tasa proporcional al volumen de agua presente en el tanque asuma que la constante de proporcionalidad es de $0.04$ por minuto determine el tiempo que tarda el tanque en alcanzar un volumen de $10m^3$.
+		
+        \textbf{Resolución:}
+
+        Primero planteamos la ecuación diferencial que modela el problema:
+
+        $$\frac{dv}{dt} = 0.8 - 0.04v$$
+
+        
+
+        \item Un laboratorio estudia una población de bacterias que crece a una tasa proporcional a su tamaño inicialmente hay 500 bacterias sin embargo debido a la aplicación constante de un antibiótico se eliminan bacterias a una tasa constante de 50 bacterias por hora. Si la tasa de crecimiento natural es del $15\%$ por hora determine el número de bacterias por 2 horas ¿Es efectivo el antibiótico?
+
+        $$\frac{dB}{dt} = 0.15 - 50t$$
+
+        \item Una compañía de seguros modela el crecimiento de su cartera de seguros mediante la siguiente ecuación diferencial \textbf{Llenar este espacio}. Debido a una campaña publicitaria atraen nuevos clientes a una tasa constante de 100 personas por mes. Sin embargo los clientes cancelan sus pólizas a una tasa proporcional al número de asegurados del 5\% (para fines prácticos se considera que la tasa es constante mensual) si inicialmente la cartera tiene mil asegurados, determine el número de asegurados después de 12 meses.
+
+        $$\frac{dN}{dt} = 100 - 0.05N$$
+
+
+
+	\end{enumerate}	
+\end{document}
