@@ -1,0 +1,88 @@
+\documentclass[12pt]{article} % Modifica el primer campo para alterar la fuente; la default sería 10pt
+
+\usepackage[utf8]{inputenc} % Fija la codificación de entrada (no necesitado con XeLaTeX)
+
+%%%%%%%%%%%%%%%%%%%%%%% Dimensiones de la página %%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry} % Para cambiar las dimensiones de la página
+\geometry{a4paper} % Se puede emplear letterpaper o a5paper, etc.
+% \geometry{margin=2in} % Por ejemplo, cambia los márgenes a 2 pulgadas alrededor
+% \geometry{landscape} % Fija la página a modo paisaje
+%   read geometry.pdf Para información más detallada acerca de la información de la disposición de la página
+
+\usepackage{graphicx} % Soporta el comando \includegraphics y sus opciones
+% \usepackage[parfill]{parskip} % Activa para empezar los párrafos con una línea vacia en vez de con una indentación
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paquetería %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs} % Para tablas mucho mas atractivas
+\usepackage{array} % Para mejores arreglos (por ejemplo matrices) en matemáticas
+\usepackage{paralist} % Listas bastante flexibles y personalizables(Por ejemplo: enumerate/itemize, etc.)
+\usepackage{verbatim} % Añade el entorno para comentar bloques de texto y para un mejor verbatim
+\usepackage{subfig} % Hace posible la inclusión de más de de una figura o tabla con descripción en un solo "float"
+\usepackage{graphicx} % Añade la posibilidad de poder insertar gráficos e imagenes
+\usepackage[spanish]{babel} % Esto es para generar el idioma del documento
+\usepackage[backend=biber]{biblatex} % Para la bibliografía 
+
+%%%%%%%%%%%%%%%%%%%%% Personalización del documento %%%%%%%%%%%%%%%%%%%%%
+
+%%% Encabezados y pies de página
+\usepackage{fancyhdr} % Esto debería ser fijado después de fijar la geometría de la página
+\pagestyle{fancy} % Opciones: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % Personaliza la disposición de la página...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% Apariencia de los títulos (secciones)
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (Ve la fntguide.pdf para obtener ayuda con las fuentes)
+% (Esto concuerda con los defaults de ConText)
+
+%%% ToC (Apariencia de la Tabla de contenidos) 
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Pone la bibliografía en la tabla de contenidos (TOC)
+\usepackage[titles,subfigure]{tocloft} % Altera el estilo de la Tabla de contenidos (TOC)
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No negritas!
+
+%%% Aquí finalizan las personalizaciones del documento
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliografía %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \bibliography{} Para añadir el archivo de bibliografía en formato .bib
+
+
+%%% El documento empieza a partir de aquí 
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Esta es la página de presentación %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\centering
+{\includegraphics[width=0.2\textwidth]{Logo_neutral_de_la_Universidad_Cristóbal_Colón.png}\par}
+\vspace{1cm}
+{\bfseries\LARGE Universidad Cristóbal Colón \par}
+\vspace{1cm}
+{\scshape\Large Licenciatura en Actuaría \par}
+\vspace{3cm}
+{\scshape\Huge T\'itulo del proyecto \par}
+\vspace{3cm}
+{\itshape\Large Tipo de proyecto \par}
+\vfill
+{\Large Autor: \par}
+{\Large Victor Gabriel Vázquez Montes \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+
+% \tableofcontents % Para desplegar la tabla de contenidos 
+% \newpage % Para empezar el contenido del documento en una nueva página 
+
+\section{Esta es una sección}
+
+El texto va aquí. 
+
+\subsection{Esto es una subsección}
+
+Añade más texto. 
+
+% \printbibliograpy[heading=bibintoc] % Para imprimir la bibliografía y ponerla en la Tabla de contenidos. 
+
+\end{document}

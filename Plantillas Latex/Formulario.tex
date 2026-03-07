@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{paracol} % Manejar varias columnas
+
+\geometry{margin=1.5cm}
+
+% Estilos para las cajas
+\tcbset{
+	1/.style={colback=black!5!white, colframe=black!75!black, title=Funciones de Supervivencia, width=\linewidth},
+	calculo/.style={colback=black!5!white, colframe=black!60!black, title=Cálculo, width=\linewidth},
+	probabilidad/.style={colback=black!5!white, colframe=black!85!black, title=Probabilidad, width=\linewidth},
+	geometria/.style={colback=black!5!white, colframe=black!70!black, title=Geometría, width=\linewidth},
+}
+
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{Formulario Matemáticas Actuariales I}} \\[1em]
+		{\small Formulario para el examen parcial}
+	\end{center}
+	
+	\begin{paracol}{2}
+		
+		% Columna izquierda
+		\begin{tcolorbox}[1]
+			$$S_x = 1 - F_x$$
+		\end{tcolorbox}
+		
+		\begin{tcolorbox}[probabilidad]
+			\textbf{Probabilidad total:}  
+			\[
+			P(A) = \sum_i P(A \mid B_i)P(B_i)
+			\]
+			
+			\textbf{Teorema de Bayes:}  
+			\[
+			P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}
+			\]
+		\end{tcolorbox}
+		
+		\switchcolumn
+		
+		% Columna derecha
+		\begin{tcolorbox}[calculo]
+			\textbf{Derivadas básicas:}  
+			\[
+			\frac{d}{dx}(x^n) = nx^{n-1}
+			\]
+			\[
+			\frac{d}{dx}(\sin x) = \cos x
+			\]
+			\[
+			\frac{d}{dx}(\cos x) = -\sin x
+			\]
+			
+			\textbf{Integrales básicas:}  
+			\[
+			\int x^n dx = \frac{x^{n+1}}{n+1}+C
+			\]
+			\[
+			\int e^x dx = e^x + C
+			\]
+		\end{tcolorbox}
+		
+		\begin{tcolorbox}[geometria]
+			\textbf{Área y volumen:}  
+			\[
+			A_{\text{círculo}} = \pi r^2, \quad 
+			V_{\text{esfera}} = \tfrac{4}{3}\pi r^3
+			\]
+			
+			\textbf{Teorema de Pitágoras:}  
+			\[
+			a^2+b^2=c^2
+			\]
+		\end{tcolorbox}
+		
+	\end{paracol}
+	
+\end{document}
