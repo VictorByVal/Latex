@@ -1,0 +1,76 @@
+% --- Configuración Inicial ---
+\documentclass[$if(fontsize)$$fontsize$$else$12pt$endif$,$if(lang)$$lang$$endif$]{article}
+
+% Paquetes esenciales para compatibilidad
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
+
+% --- Soporte para imágenes ---
+\usepackage{graphicx}
+% Esto asegura que las imágenes no se salgan de los márgenes
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth}
+
+% --- Hipervínculos ---
+\usepackage{hyperref}
+\hypersetup{
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$},
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=cyan,
+  breaklinks=true
+}
+
+% --- Metadatos (Título, Autor, Fecha) ---
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+
+\date{$if(date)$$date$$else$\today$endif$}
+
+% --- Inicio del Documento ---
+\begin{document}
+
+\begin{titlepage}
+\centering
+{\includegraphics[width=0.2\textwidth]{Logo_neutral_de_la_Universidad_Cristóbal_Colón.png}\par}
+\vspace{1cm}
+{\bfseries\LARGE Universidad Cristóbal Colón \par}
+\vspace{1cm}
+{\scshape\Large Licenciatura en Actuaría \par}
+\vspace{3cm}
+{\scshape\Huge $if(title)$$title$$else$ T\'itulo del proyecto $endif$ \par}
+\vspace{3cm}
+{\itshape\Large Tipo de proyecto \par}
+\vfill
+{\Large Autor: \par}
+{\Large Victor Gabriel Vázquez Montes \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+% --- EL CONTENIDO (Obligatorio) ---
+$body$
+
+\end{document}
