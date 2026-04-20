@@ -1,0 +1,1530 @@
+\documentclass[12pt, a4paper, footinclude=true]{scrbook}
+\usepackage{geometry}[margin = 1cm]
+\usepackage{actuarialsymbol}
+\usepackage{actuarialangle}
+\usepackage[spanish]{babel}
+
+% Paquetes para dibujo de gráficas 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{arrows.meta, bending, decorations.pathreplacing, shapes.geometric}
+\pgfplotsset{compat=1.18}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usetikzlibrary{decorations.pathreplacing}
+
+% Base general
+\newtcolorbox{calloutbase}[2][]{
+	enhanced,
+	breakable,
+	sharp corners,
+	boxrule=0pt,
+	colback=#2!12,
+	borderline west={3pt}{0pt}{#2!70!black},
+	left=6pt,
+	right=6pt,
+	top=6pt,
+	bottom=6pt,
+	#1
+}
+
+% Entornos específicos
+\newenvironment{callout-azul}{
+	\begin{calloutbase}{blue}
+	}{
+	\end{calloutbase}
+}
+
+\newenvironment{advertencia}{
+	\begin{calloutbase}{orange}
+	}{
+	\end{calloutbase}
+}
+
+\newenvironment{callout-rojo}{
+	\begin{calloutbase}{red}
+	}{
+	\end{calloutbase}
+}
+
+\newenvironment{callout-verde}{
+	\begin{calloutbase}{green}
+	}{
+	\end{calloutbase}
+}
+
+\newenvironment{callout-morado}{
+	\begin{calloutbase}{violet}
+	}{
+	\end{calloutbase}
+}
+
+
+% Title Page
+\title{Resumen de Matemáticas Actuariales}
+\author{Victor Gabriel Vázquez Montes}
+
+\begin{document}
+
+\begin{titlepage}
+	
+	\huge{Universidad Cristóbal Colón}
+
+
+\end{titlepage}
+
+
+\tableofcontents
+
+\chapter{Matemáticas Actuariales I}
+
+\section{Notación probabilística}
+
+``Future Lifetime'' = Vida futura
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+	
+	% Línea principal
+	\draw[thick] (0,0) -- (8,0);
+	
+	% Marcas verticales
+	\draw[thick] (0,0.15) -- (0,-0.15);
+	\draw[thick] (5,0.15) -- (5,-0.15);
+	\draw[thick] (7,0.15) -- (7,-0.15);
+	
+	% Etiquetas abajo
+	\node at (5,-0.5) {$x$};
+	\node at (7,-0.5) {$x+tx$};
+	
+	% Llaves superiores
+	\draw[decorate,decoration={brace,amplitude=6pt}]
+	(0,0.4) -- (5,0.4)
+	node[midway,yshift=0.6cm] {$x$};
+	
+	\draw[decorate,decoration={brace,amplitude=6pt}]
+	(5,0.4) -- (7,0.4)
+	node[midway,yshift=0.6cm] {$Fx$};
+	
+\end{tikzpicture}
+\end{center}
+
+Donde: 
+
+\begin{itemize}
+\item ($x$) Sera la edad de una persona, por lo que se puede afirmar que $x \geq 0$
+\item Se debe tomar en cuenta que la muerte puede ocurrir en cualquier momento mayor a $x$ (No puede ocurrir antes de $x$ porque se supone que la persona ya llegó a esa edad). 
+\end{itemize}
+
+\subsection{Glosario}
+
+\begin{itemize}
+
+\item $Fx$: Representa la probabilidad de que ($x$) no sobreviva mas de $x + t$ años. 
+\item $Sx$: Es la probabilidad de que una persona sobreviva mas de $x+t$ anos. 
+\item $T_x$> Es la cantidad de tiempo hasta que una persona de $x$ años muera. 
+\item $T_0$: Vida futura de un recien nacido considerando que el bebe pudo morir antes de llegar a la edad $x$. 
+\item 
+
+\subsection{Distribución de la vida futura}
+
+\begin{flushright} $Fx$ para $T_x$ 
+
+
+\end{flushright}
+
+\begin{tikzpicture}[scale=1.5]
+	
+	% Línea principal
+	\draw[thick] (0,0) -- (8,0);
+	
+	% Marcas verticales
+	\draw[thick] (0,0.15) -- (0,-0.15);
+	\draw[thick] (5,0.15) -- (5,-0.15);
+	\draw[thick] (7,0.15) -- (7,-0.15);
+	
+	% Etiquetas abajo
+	\node at (0,-0.5) {$0$};
+	\node at (5,-0.5) {$t$};
+	\node at (7,-0.5) {$\infty$};
+	
+	% Llaves superiores
+	\draw[decorate,decoration={brace,amplitude=6pt}]
+	(0,0.4) -- (5,0.4)
+	node[midway,yshift=0.6cm] {$Fx = Pr[Tx \leq t]$};
+	
+\end{tikzpicture}
+
+
+Siendo así, entonces la función de supervivencia es la probabilidad inversa de que la persona fallezca en dicho periodo, por lo que se puede concluir que: 
+
+$$Sx = 1 - Fx = Pr[Tx < t]$$
+
+\end{itemize}
+
+\section{Notacion Actuarial}
+
+Es diferente la notacion que se emplea en la actuaria a aquella con la que los padres de la probabilidad empezaron a explorar las funciones de supervivencia y mortalidad. 
+
+En actuaria existen notaciones equivalentes a las funciones definidas con anterioridad: 
+
+$$ \px[t]{x} = Pr[T_x > t] = Sx(t)$$
+
+$$ \qx[t]{x} = Pr[T_x < t] = Fx(t)$$
+
+\textbf{Propiedades}
+
+\begin{enumerate}
+	\item $\px[t]{x} + \qx[t]{x} = 1$ (O estas muerto o estas vivo). 
+	\item $\px[t+u]{x} = \px[t]{x} \cdot \px[u]{x+t}$.
+	\subitem Esta propiedad solo es válida para la función de supervivencia y aunque si se puede aplicar a la de fallecimiento, requiere de emplear despejes y ecuaciones algebráicas para obtener el resultado deseado. 
+\end{enumerate}
+
+\subsection{Glosario}
+
+\begin{itemize}
+	\item $\px[t]{x}$: Es la probabilidad de que una persona sobreviva durante $t$ años teniendo $x$ años. 
+	\item $\qx[t]{x}$: Es la probabilidad de que una persona fallezca dentro de los $t$ años siguientes teniendo $x$ años. 
+\end{itemize}
+
+\section{Fuerza de Mortalidad}
+
+Es la probabilidad instantanea de fallecer en el proximo instante, condicionada a haber sobrevivido hasta ese momento. 
+
+\begin{itemize}
+	\item Se mide en unidades de ``por año'' (Si el tiempo esta en años). Por ejemplo: Si $\mu_{70} = 0.05$ significa que una persona de 70 años cumplidos tiene una probabilidad aproximada del 5\% de morir durante el proximo año si ese valor se mantiene constante durante en ese intervalo muy corto. 
+	\item Simplificacion: Mide que tan ``intensa'' es la mortalidad en ese instante exacto de edad. 
+\end{itemize}
+
+\begin{tikzpicture}[scale=1.5]
+	
+	% Línea principal (eje del tiempo)
+	\draw[thick] (0,0) -- (9,0);
+	
+	% Marcas de tiempo
+	\draw[thick] (2,0.15) -- (2,-0.15);
+	\draw[thick] (6,0.15) -- (6,-0.15);
+	\draw[thick] (8,0.15) -- (8,-0.15);
+	
+	% Etiquetas de tiempo
+	\node at (2,-0.6) {$0$};
+	\node at (6,-0.6) {$t$};
+	\node at (8,-0.6) {$t+\Delta t$};
+	
+	% Función de supervivencia
+	\node at (4,0.4) {$S_x(t)$};
+	
+	% Llave grande: sobrevive entre 0 y t
+	\draw[decorate,decoration={brace,amplitude=8pt}]
+	(6,-1.2) -- (2,-1.2)
+	node[midway,yshift=-0.8cm] {Sobrevive entre $0$ y $t$};
+	
+	% Llave pequeña: muerte entre t y t+Δt
+	\draw[decorate,decoration={brace,amplitude=6pt}]
+	(6,0.5) -- (8,0.5)
+	node[midway,yshift=0.7cm] {Muerte};
+	
+	% Llave grande inferior: muerte ocurre entre t y t+Δt
+	\draw[decorate,decoration={brace,amplitude=10pt}]
+	(8,-2.4) -- (2,-2.4)
+	node[midway,yshift=-0.9cm] {Muerte ocurre entre $t$ y $t+\Delta t$};
+	
+\end{tikzpicture}
+
+\section{Leyes de probabilidad}
+
+\subsection{De Moivre}
+
+Especifica que la muerte se distribuye de forma uniforme en $[0, w]$, Donde $w$ es la edad limite de una poblacion. 
+
+$$\mu_x = \frac{1}{w-x}, \hspace{1cm} Sx = 1 - \frac{x}{w}, \hspace{1cm} 0 < x \leq w$$
+
+\subsection{Gompertz}
+
+Asumio que $\ln{|\mu_x|}$ en una recta podía ser expresado como: 
+
+$$\ln{|\mu_x|} = \alpha + \beta x$$
+
+Donde si se desea conocer el valor de $\mu_x$ aplicamos la constante de euler> 
+
+\subsection{Makeham}
+
+Es la misma que \textbf{Gompertz} solo que agregando el parametro adicional $A$. 
+
+La interpretación es que $BC^x$ representa la muerte como deterioración, la cual incrementa exponencialmente con $A$ que representa una constante. 
+
+\section{Limites de tiempo}
+
+Nos sirve para sacar el promedio de años que vivirá una persona durante los siguientes $n$ años. 
+
+
+$n$ - year composite expectation of life: 
+$\min(Tx, n)$
+
+$$\eringx{\endowxn} = E[\min(Tx, n)] = \int_{0}^{n} \px[t]{x} dt \hspace{1cm}\text{\color{red} (Para el caso contínuo)}$$ 
+
+$$e_{\endowxn} = \sum_{k=1}^{n} \px[k]{x} \hspace{1cm} \text{\color{red} (Para el caso discreto)}$$
+
+\begin{center}
+	\textit{``En vez de decirnos la probabilidad de que una persona muera, nos dice cuando va a morir''}
+\end{center}
+
+\textbf{Relación entre la continua y la discreta}
+
+$$\eringx{x} = \frac{1}{2} + e_x$$
+
+\section{Tablas de mortalidad}
+
+Una tabla de mortalidad especifica el número de vidas a una cierta edad $x$. 
+
+El número de vidas a edad $x_0$ es conocido como \textbf{Radix} o ``Población inicial'' 
+
+\subsection{Tablas de mortalidad selecta}
+
+\subsubsection{Curtate Future Lifetime}
+
+Significa \textbf{Tiempo entero de vida}
+
+Es una variable entera/discreta donde $k_x = k$
+
+\textit{``Intervalo de tiempo de muerte''}
+
+$k_x = k$ significa que la muerte de una persona de edad $x$ estará dentro del k-enésimo intervalo $(k-1, k]$
+
+$$k_x = \lfloor T_x \rfloor \hspace{1cm} \text{\color{red} Valor truncado de $x$}$$ 
+
+\section{Seguros}
+
+\subsection{Tipos de seguros}
+
+\subsubsection{Vitalicio / Vida entera (Whole life)}
+
+Lo que hace este tipo de seguro es asumir que se pagará \$1 al momento de la muerte. 
+
+Por lo tanto, lo que se hace es traer el valor presente de \$ 1 pagadero al momento de la muerte. 
+
+Para ello usaremos una $T_x$ continua
+
+\[
+	Z = V^{T_x} = e^{-\delta T_x}
+\]
+
+Donde: 
+\begin{itemize}
+	\item $\delta$: Es la fuerza de interés. 
+	\item $T_x$: Es el tiempo que debe regresar el  \$ 1 al presente 
+\end{itemize}
+
+Por lo tanto, se puede decir que: 
+
+\begin{itemize}
+	\item $E[T_x]$: Es el valor esperado de cuando ocurrirá la muerte. 
+	\item $E[Z]$: Es el valor esperado de cuando esperamos pagar la suma asegurada.
+\end{itemize}
+
+\[
+	E[Z] = E[e^{-\delta T_x}]
+\]
+
+
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+	%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+	
+	%Straight Lines [id:da7376839101373023] 
+	\draw    (109,161) -- (527.33,161) (273,157) -- (273,165)(437,157) -- (437,165) ;
+	\draw [shift={(530.33,161)}, rotate = 180] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+	\draw [shift={(109,161)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+	%Shape: Brace [id:dp502356150507335] 
+	\draw   (108,199) .. controls (108,203.67) and (110.33,206) .. (115,206) -- (180.17,206) .. controls (186.84,206) and (190.17,208.33) .. (190.17,213) .. controls (190.17,208.33) and (193.5,206) .. (200.17,206)(197.17,206) -- (265.33,206) .. controls (270,206) and (272.33,203.67) .. (272.33,199) ;
+	%Shape: Rectangle [id:dp2116147331087268] 
+	\draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=0 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=0.3 ] (273,154) -- (436.33,154) -- (436.33,170) -- (273,170) -- cycle ;
+	%Shape: Free Drawing [id:dp8495024415521517] 
+	\draw  [color={rgb, 255:red, 184; green, 233; blue, 134 }  ,draw opacity=1 ][line width=3] [line join = round][line cap = round] (176.33,89.67) .. controls (176.33,84.61) and (167.54,88.46) .. (163.67,92.33) .. controls (157.56,98.44) and (156.92,120.96) .. (166.33,126.33) .. controls (174.31,130.89) and (176.02,130.49) .. (186.33,129.67) .. controls (213.77,127.47) and (207.22,70.89) .. (177.67,85.67) ;
+	%Shape: Free Drawing [id:dp7818874018128433] 
+	\draw  [color={rgb, 255:red, 184; green, 233; blue, 134 }  ,draw opacity=1 ][line width=3] [line join = round][line cap = round] (173.67,98.33) .. controls (173.67,102.22) and (174.33,112.94) .. (174.33,109) ;
+	%Shape: Free Drawing [id:dp37608410612369947] 
+	\draw  [color={rgb, 255:red, 184; green, 233; blue, 134 }  ,draw opacity=1 ][line width=3] [line join = round][line cap = round] (182.33,97) .. controls (182.33,100.34) and (182.34,103.72) .. (183,107) ;
+	%Shape: Free Drawing [id:dp6273715752908713] 
+	\draw  [color={rgb, 255:red, 184; green, 233; blue, 134 }  ,draw opacity=1 ][line width=3] [line join = round][line cap = round] (168.33,111) .. controls (168.33,125.06) and (188.33,123.34) .. (188.33,109.67) ;
+	%Shape: Free Drawing [id:dp715308403908088] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (347,191) .. controls (335.63,191) and (330.05,209.48) .. (331,219) .. controls (332.79,236.9) and (356.59,235.89) .. (368.33,231) .. controls (379.99,226.14) and (378.74,198.27) .. (370.33,191.67) .. controls (364.67,187.21) and (350,187.87) .. (344.33,189) ;
+	%Shape: Free Drawing [id:dp285519545736307] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (352.33,199.67) .. controls (349.67,203.82) and (347.16,208.18) .. (343.67,211.67) ;
+	%Shape: Free Drawing [id:dp23706621271126382] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (351.67,210.33) .. controls (350.71,208.42) and (343.4,201.26) .. (342.33,202.33) ;
+	%Shape: Free Drawing [id:dp2615874294505175] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (365.67,197) .. controls (363.89,200.56) and (364.31,207.67) .. (360.33,207.67) ;
+	%Shape: Free Drawing [id:dp7482425513540865] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (367,207) .. controls (363.48,205.24) and (362.79,197.67) .. (358.33,197.67) ;
+	%Shape: Free Drawing [id:dp6228508298661153] 
+	\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=0.3 ][line width=3] [line join = round][line cap = round] (365,220.33) .. controls (362.37,217.7) and (358.01,216.42) .. (354.33,217) .. controls (350.98,217.53) and (350.15,219.85) .. (348.33,221.67) .. controls (347.94,222.06) and (347,224.74) .. (347,223) ;
+	
+	% Text Node
+	\draw (104,135.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+	% Text Node
+	\draw (104,170.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+	% Text Node
+	\draw (255,170.4) node [anchor=north west][inner sep=0.75pt]    {$x+s$};
+	% Text Node
+	\draw (269,136.4) node [anchor=north west][inner sep=0.75pt]    {$s$};
+	% Text Node
+	\draw (421,136.4) node [anchor=north west][inner sep=0.75pt]    {$s+\triangle s$};
+	% Text Node
+	\draw (171,224.4) node [anchor=north west][inner sep=0.75pt]    {$\px[s]{x}$};
+	% Text Node
+	\draw (397,169.4) node [anchor=north west][inner sep=0.75pt]    {$x+s+\triangle \delta s\ $};
+	% Text Node
+	\draw (336,129.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=0.5 ]  {$\mu _{x+s}$};
+	% Text Node
+	\draw (279,108) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=0.5 ] [align=left] {Fuerza de mortalidad};
+\end{tikzpicture}
+\end{center}
+
+Ilustrado el concepto, entonces tenemos que explicar que: 
+
+\begin{itemize}
+	\item $x$: La edad a la que una persona contrata el seguro. 
+	\item $x+s$: Llega con vida
+	\item $\mu_{x+s}$: Muere
+\end{itemize}
+
+\[
+	\Ax*{x} = E[Z] = E[e^{-\delta T_x}] = \int_{0}^{\infty} e^{-\delta t} \cdot \px[t]{x} \cdot \mu_{x+t} dt
+\]
+
+$\Ax*{x}$ es entonces el valor presente actuarial (VPA) de un beneficio (Suma asegurada) para una persona en edad $x$ pagadero al momento de la muerte. 
+
+Donde la suma asegurada es igual a $S$ por lo tanto $S \rightarrow E[S \cdot Z] = S \cdot \Ax*{x}$
+
+{\color{red} Si tenemos fuerza de mortalidad constante, entonces:}
+
+\[
+	E[Z] = \int_{0}^{\infty} e^{-\delta t} \cdot \px[t]{x} \cdot \mu_{x+t} dt \\ 
+\]
+
+\[
+	\text{Se debe recordar que...} \hspace{0.5cm} \underbrace{\px[t]{x} = e^{\int_{0}^{y} \mu x dx}}_{\color{red}Continua}
+\]		
+
+\[
+	\text{Por lo que, dado que $\mu_x$ es constante, entonces tenemos...} \hspace{0.5cm} \px[t]{x} = e^{-\mu t}
+\]
+
+De donde obtenemos que: 
+
+\[
+	\Ax*{x} = \int_{0}^{\infty} e^{-\delta t} \cdot e^{-\mu t} \cdot \mu dt
+\]
+
+\[
+	\mu \int_{0}^{\infty} e^{-\delta t - \mu t} dt = \mu \cdot e^{(\delta + \mu) |_{0}^{\infty}} \cdot \frac{1}{-(\mu + \delta)}
+\]
+
+\[
+	-\frac{\mu}{\mu + \delta} e^{- \infty} + \frac{\mu}{\mu + \delta} e^{-0} = \boxed{\color{red} \frac{\mu}{\mu + \delta}}
+\]
+
+\subsubsection{Seguro Temporal (Term Insurance)}
+
+\subsubsection{Seguro dotal puro (Pure Endowment)}
+
+Es el tipo de seguro que se paga si y solo si el asegurado llega con vida a los $n$ años. 
+
+$$
+	Z = 
+	\begin{cases}
+		0 & \text{Con probabilidad $\qx[n]{x}$} \\
+		V^n = e^{-\delta n} & \text{Con probabilidad $\px[n]{x}$} 
+	\end{cases}
+$$
+
+Por lo tanto su notación es comprendida de la siguiente manera: 
+
+$$ \Ax*{\pureendowxn} = \Ex[n]{x}$$
+
+$$E[Z] = \Ax*{\pureendowxn} = v^n \cdot \px[n]{x} = e^{-\delta n} \cdot \px[n]{x}$$
+
+Donde, si $\px[n]{x}$ tiene una mortalidad constante (Fuerza de mortalidad constante):
+
+$$\Ax*{\pureendowxn} = e^{-\delta n} \cdot e^{-\mu n} = e^{-n(\delta + \mu)}$$
+
+\subsubsection{Seguro dotal mixto (Endowment)}
+
+\[
+	Z = 
+	\begin{cases}
+		v^{T_x} = e^{-\delta T_x} & T_x < n \rightarrow \text{Si muere} \\
+		
+		v^n = e^{-\delta n} & T_x \geq n \rightarrow \text{Si vive}
+	\end{cases}
+\]
+
+\[
+	Z = V^{\min(T_x, n)} = e^{-\delta \min(T_x, n)}
+\]
+
+Por lo que: 
+
+\[
+	\Ax*{\endowxn} = \Ax*{\termxn} + \Ax{\pureendowxn}	= \left( \int_{0}^{n} e^{-\delta t} \cdot \px[t]{x} \cdot \mu_{x+t} \delta t\right) + \left( V_{t}^{n} \px{x} \right)
+\]
+
+El seguro dotal mixto resulta en una combinación entre un seguro temporal y un seguro dotal puro, debido a que paga tanto si la persona sobrevive como si la persona muere. 
+
+\subsection{Glosario y Notación}
+
+$\Ax{x}$: Valor presente actuarial (VPA) o en inglés (NPV) de una unidad monetaria pagadera al final del año de fallecimiento de una persona de edad $x$ (Whole life insurance).\\
+
+$\Ax{\termxn}$: Denota el valor presente actuarial de un seguro temporal (n-year term insurance). 
+
+$\Ax{x:\angln}$: Denota el valor presente actuarial de un seguro dotal mixto (n-year endowment insurance)
+
+$\Ax{\pureendowxn}$: Denota el valor presente actuarial (VPA) de un seguro dotal puro (n-year pure endowment)
+
+$\Ex[n]{x}$: Factor de descuento actuarial (The pure endowment present value factor)
+
+$\Ax{x}[(m)]$: Denota el valor presente actuarial para un seguro en el que el pago por la muerte se efectúa al final del m-ésimo periodo del año en el que ocurre la muerte. 
+
+\begin{itemize}
+	\item $(m)$: Es la frecuencia de pagos (el seguro se paga en fracciones del año).
+	\item Es un seguro de vida entera (cubre toda la vida de la persona).
+	\item Donde $(m) > 0$ por lo que: 
+	\subitem $m = 2$ Semestral cada 6 meses = Dos veces al año "semi-annual". 
+	\subitem $m = 4$ Trimestral cada 3 meses = 4 veces al año "quarterly".
+	\subitem $m = 12$ Mensual cada mes, 12 veces al año "monthly". 
+	\subitem $m = 6$ bimestral cada 2 meses = 6 veces al año.
+	\subitem La lista puede continuar dependiendo cuantas veces y que tan pagadero se quiera hacer el seguro.  
+\end{itemize}
+
+Como comentario, 
+
+\section{Anualidades contingentes}
+
+Anualidad contingente: Serie de pagos al final de un periodo condicionada a la vida de una persona
+
+\begin{itemize}
+	\item Puede ser empleado para seguros o pensiones que empiezan a partir de cierto periodo y terminan hasta que el pensionado o asegurado muere. 
+	\item Incluso podría llegar a ser aplicado para alguna segubeca o seguros similares. 
+\end{itemize}
+
+\section{Edades fraccionarias de mortalidad}
+
+\textbf{UDD}: Uniform Distribution of death. 
+
+\textbf{Se asume una fuerza constante de mortalidad}
+
+\vspace{1cm}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt 
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+	%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+	
+	%Straight Lines [id:da23710618032520359] 
+	\draw    (104,117) -- (480,117) (284,110.5) -- (284,123.5)(464,110.5) -- (464,123.5) ;
+	\draw [shift={(483,117)}, rotate = 180] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+	\draw [shift={(101,117)}, rotate = 0] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+	%Straight Lines [id:da3667942171299532] 
+	\draw    (103,50) -- (321,49) ;
+	%Straight Lines [id:da07887529438472474] 
+	\draw    (321,118) -- (321,49) ;
+	%Straight Lines [id:da42361193166684863] 
+	\draw  [dash pattern={on 0.84pt off 2.51pt}]  (284,119) -- (284,50) ;
+	%Shape: Rectangle [id:dp2856002199031109] 
+	\draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=0.2 ][fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=0.2 ] (284.01,117.79) -- (284.39,49) -- (321.38,49.21) -- (321,118) -- cycle ;
+	%Straight Lines [id:da23734398010970692] 
+	\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=0.2 ]   (287,130) -- (317,130) ;
+	\draw [shift={(320,130)}, rotate = 180] [fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=0.2 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+	\draw [shift={(284,130)}, rotate = 0] [fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=0.2 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+	
+	% Text Node
+	\draw (276,135.4) node [anchor=north west][inner sep=0.75pt]    {$kx$};
+	% Text Node
+	\draw (441,135.4) node [anchor=north west][inner sep=0.75pt]    {$kx+1$};
+	% Text Node
+	\draw (104,136.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+	% Text Node
+	\draw (50,138.4) node [anchor=north west][inner sep=0.75pt]    {$t$};
+	% Text Node
+	\draw (83,181) node [anchor=north west][inner sep=0.75pt]   [align=left] {Edad $\displaystyle x$};
+	
+	
+\end{tikzpicture}
+
+\chapter{Matemáticas Actuariales II}
+
+\section{Reservas}
+
+La reserva matemática de una póliza en vigor, al momento de valuación se determinará con base en la diferencia entre el VPA de obligaciones y el VPA de las primas
+
+Se asumirá siempre: 
+
+\begin{itemize}
+	\item $i = 0.06$ Tabla de mortalidad de la SOA
+\end{itemize}
+
+La reserva a tiempo $t$ será estimada como el VP de la pérdida futura a tiempo $t$. 
+
+$$t_V = E[L_t]$$
+
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+	%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+	
+	%Curve Lines [id:da31604371037346146] 
+	\draw    (282.33,72) .. controls (215.35,68.06) and (195.91,95.17) .. (200.12,136.12) ;
+	\draw [shift={(200.33,138)}, rotate = 263.21] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+	%Shape: Boxed Bezier Curve [id:dp600694142508993] 
+	\draw    (364.42,232.27) .. controls (425.51,239.13) and (423.4,202.22) .. (426.08,164.63) ;
+	\draw [shift={(426.2,162.91)}, rotate = 94.31] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+	%Shape: Boxed Bezier Curve [id:dp8151678362789523] 
+	\draw    (199.34,170) .. controls (191.19,231.07) and (233.89,229.08) .. (277.35,231.87) ;
+	\draw [shift={(279.33,232)}, rotate = 183.89] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+	%Shape: Boxed Bezier Curve [id:dp1741955785108219] 
+	\draw    (424.77,134.69) .. controls (431.21,73.55) and (394.31,75.91) .. (356.7,73.49) ;
+	\draw [shift={(354.99,73.38)}, rotate = 3.92] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+	
+	% Text Node
+	\draw (297,141) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{ptm}\selectfont Seguro}};
+	% Text Node
+	\draw (300,65) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{ptm}\selectfont Prima}};
+	% Text Node
+	\draw (293,221) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{ptm}\selectfont Beneficio}};
+	% Text Node
+	\draw (160,142) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{ptm}\selectfont Aseguradora}};
+	% Text Node
+	\draw (393,141) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{ptm}\selectfont Asegurado}};
+	
+\end{tikzpicture}
+	
+\end{center}
+
+La ilustración anterior sirve para recordar de forma práctica lo que es un seguro y su naturaleza cíclica, en donde un asegurado paga una prima, que ingresa a una aseguradora para posteriormente pagar un beneficio a ese asegurado.\\ 
+
+Es además importante recordar los tipos de primas que existen: 
+
+\begin{itemize}
+	\item Prima única: Aquella en la que se efectúa un solo pago al principio. 
+	\item Prima nivelada: Aquella en la que se efectúan una serie de pagos a lo largo de un periodo. 
+\end{itemize}
+
+\textbf{El principio de equivalencia:} Sostiene que el valor actuarial esperado de las primas (aportaciones), calculados ambos en el mismo instante del tiempo y bajo las mismas hipótesis financieras y biométricas es igual al valor actuarial esperado de las primas, en otras palabras: 
+
+$$ \text{VAE(Beneficios)} = \text{VAE(Primas)}$$
+
+Esto es de suma importancia, debido a que implica que el contrato de seguros debe ser financieramente justo (equilibrado) entre ambas partes, lo cuál se cumple si: 
+
+\begin{itemize}
+	\item La aseguradora no obtiene ganancia ni pérdida neta. 
+	\item El asegurado no subsidia ni es subsididado.
+\end{itemize}
+
+Este principio es meramente técnico al implicar neutralidad financiera, puesto que las aseguradoras (como toda entidad lucrativa) tienen el mantra de tener rentabilidad. 
+
+Para que el principio sea válido, se consideran los siguientes elementos: 
+
+\begin{itemize}
+	\item Interés técnico $i$ 
+	\item Mortalidad/Supervivencia (tablas biométricas)
+	\item Probabilidades de ocurrencia del siniestro
+	\item Estructura temporal de pagos
+	\item Valor del dinero en el tiempo
+\end{itemize}
+
+$l$: Es como se denota la pérdida futura en la que va a incurrir la compañía aseguradora. 
+
+\begin{enumerate}
+	\item Prima neta ``Net''
+	
+	$$ L_0^n = \text{VP de Beneficios} - \text{VP de las primas} \hspace{.5cm} \text{(Sin gastos)}$$
+	
+	\item Prima bruta ``Gross''
+	
+	\[
+		L_0^n = \text{VP beneficios} + \text{VP de los gastos} - \text{VP de las primas} \hspace{.5cm} \text{(Con gastos)}
+	\]
+\end{enumerate} 
+
+\textbf{Primas}
+
+Usando el principio de equivalencia
+
+
+$$E[L_0^n] = 0 \hspace{.5cm} \text{``El valor esperado de la pérdida futura será 0''}$$
+
+\textbf{Ejemplo}
+
+\vspace{.5cm}
+
+Un asegurado de (60) compra un seguro vitalicio de \$ 100,000 pagadero al momento de su muerte; Se nos encarga estimar la prima bajo el principio de equivalencia, tomando en cuenta que las primas se pagarán hasta que cumpla 80 años, dado que:
+
+\[
+	\mu = 0\decimalpoint.05, \hspace{0.5cm} \delta = 0\decimalpoint.006
+\] 
+
+\[
+	L_0^n = \underbrace{\text{VP Obligaciones}}_{\text{Seguro}} - \text{VP de las primas}
+\]
+
+Lo cuál quedaría de la siguiente manera en notación actuarial:
+
+\[
+	100,000 \Ax*{60} - P \cdot \ddot{a}_{\endow{60}{20}}
+\]
+
+Aplicando el principio de equivalencia, tenemos que la expresión anterior equivale a: 
+
+\[
+	0 = 100,000 \Ax*{60} - P \cdot \ddot{a}_{\endow{60}{20}}
+\]
+
+Aplicando despejes algebráicos simples llegamos a la conclusión de que: 
+
+\[
+	P = \frac{100,000 \Ax*{60}}{\ddot{a}_{\endow{60}{20}}}
+\]
+
+Acto seguido calculamos los dos elementos que necesitamos para obtener el valor de nuestra prima: 
+
+\[
+	\Ax*{60} = \frac{\mu}{\mu + \delta} = \frac{0.05}{0.056} = 0 \decimalpoint. 8928
+\]
+
+Para la parte de la anualidad contingente es necesario recordar que la tasa de descuento $d = 1 - e^{-\delta}$, por lo que: 
+
+\[
+	% Primera parte de la expresion
+	d =  1 - e ^ {-0\decimalpoint.006} = \decimalpoint.00598203
+\]	
+
+\[
+	\ddot{a}_{\endow{60}{20}} = \frac{1 - \Ax*{x}{n}}{d} = \frac{1 - [1 - e^{-20(0\decimalpoint.05)(0\decimalpoint.006)}]}{\decimalpoint.00598203} = 54\decimalpoint.54332302 \approx 54\decimalpoint.54 \%
+\]
+
+\[
+	= \frac{100,000[.8928]}{54.54} = \$ 1638.863965 \approx \boxed{\$ 1638.83}
+\]
+
+\textbf{Gross Premium}
+
+Gastos
+
+\begin{itemize}
+	\item Gasto inicial: Comisiones del agente + ``Underwrittings''.
+	\item Gastos administrativos
+	\item Gastos al momento del beneficio
+\end{itemize}
+
+\textbf{Ejemplo}
+
+Se tiene un seguro de (30) de vida entera con una suma asegurada de \$ 500,000 pagadero al final del mes, donde las primas serán pagadas al principio de cada año durante el tiempo de cobertura. 
+
+Algunos de los gastos son: 
+
+\begin{enumerate}
+	\item 50\% de la primera prima para el agente  \item \$ 2,500 por emisión 
+	\item 5\% de cada prima por admin. 
+	\item 4\% cuando se cobre la S.A
+\end{enumerate}
+
+\section{Vidas Múltiples}
+
+Implica hacer todos los cálculos que hicimos en este semestre y en el anterior, pero haciendolos para muchas personas. 
+
+Se usa para seguros un poco más complejos, como los seguros colectivos, para grupos relacionados entre si, o seguros familiares donde la vida depende de algún familiar. 
+
+Dicho esto ocurren dos casos: 
+
+\begin{itemize}
+	\item Vida conjunta (``Primero que muere'')
+	\item Último sobreviviente (``Último que muere'')
+\end{itemize}
+
+\subsection{Vida conjunta}
+
+Teniendo a dos personas que serán denotadas como $(x)$ y $(y)$, el estatus que se les otorga de ``vida conjunta'' estará vigente siempre y cuando $(x)$ y $(y)$ estén con vida (La misma restricción aplica para un caso de tres o más personas), donde dicho estatus termina o vence en el momento en el que la primera persona muere sin importar quien sea.\\ 
+
+%$(x)$ y $(y)$ son dos personas. \\
+
+%El estatus de vida conjunta estará vigente siempre y cuando $(x)$ y $(y)$ estén con vida (Esta restricción aplica tanto para un caso de dos o más personas). 
+
+%El estatus de vida conjunta se termina/vence cuando la primera persona muere sin importar quien sea. 
+
+$T_{xy}$: Es el tiempo futuro del estatus vida conjunta osea en el tiempo en el que la primer persona del grupo muere. 
+
+$$T_{xy} = \min(T_x, T_y) \leq T_x \hspace{1cm} \& \hspace{1cm} T_{xy} = \min(T_x, T_y) \leq T_y$$
+
+$$\text{Para el caso de cuatro variables la notación sería...} \hspace{0.5cm} T_{xyzw} = \min{T_x, T_y, T_z, T_w}$$\\
+
+\textbf{Probabilidad de fracaso/éxito}\\
+
+La probabilidad de que el estatus sobreviva viene dada por: 
+
+$$P[(x) \text{ y } (y) \text{ estén con vida } t \text{ años } ] = P[T_{xy} > t] = \px[t]{xy}$$ \\
+
+Mientras que la probabilidad de que el estatus falle (Se debe recordar que es la probabilidad de que una persona de las tantas del grupo muera) viene dada por: 
+
+$$P[(x) \text{ y } (y) \text{ No estén con vida en } t \text{ años } ] = Pr[T_{xy} \leq t] = \qx[t]{xy}$$ \\
+
+Y dado que asumimos vidas independientes:
+
+$$\px[t]{xy} = Pr[T_{xy} > T_x \hspace{.3cm} \& \hspace{.3cm} T_{xy} > T_y] = \px[t]{x} \cdot \px[t]{y}$$
+
+$$\qx[t]{xy} = 1 - \px[t]{xy} = 1 - \px[t]{x} \cdot \px[t]{y} = 1 - (1 - \qx[t]{x})(1-\qx[t]{y})$$
+
+\begin{advertencia}
+	No debes confundirte en la notación, recuerda que al igual que en la notación probabilística: $$\qx[t]{xy} \neq \qx[t]{x} \cdot \qx[t]{y}$$
+\end{advertencia}
+
+
+
+\textbf{Ejemplo:}\\
+
+Teniendo la siguiente tabla de mortalidad, donde $(x)$ es el marido de edad 65 y $(y)$ la mujer de edad 60. se nos pide calcular la probabilidad de que el estatus termine en los siguientes 3 años: \\
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+	
+	$x$ & $\lx{x}$ & $y$ & $\lx{y}$ \\
+	\hline
+	65 & 4.302 & 60 & 4.726 \\
+	66 & 4.189 & 61 & 4.110 \\
+	67 & 4.205 & 62 & 4.127 \\
+	68 & 4.219 & 63 & 4.143 \\
+	69 & 4.234 & 64 & 4.159 \\
+	
+\end{tabular}
+\end{center}
+
+\textbf{Resolución}\\
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\begin{center}
+	\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+	\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+		%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+		
+		%Straight Lines [id:da8697542673867815] 
+		\draw    (100,156) -- (523.33,153) (245.97,150.97) -- (246.02,158.97)(391.96,149.93) -- (392.02,157.93) ;
+		\draw [shift={(523.33,153)}, rotate = 179.59] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+		\draw [shift={(100,156)}, rotate = 179.59] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+		%Straight Lines [id:da13644970534823986] 
+		\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ]   (100,136) -- (523.33,133) (245.97,130.97) -- (246.02,138.97)(391.96,129.93) -- (392.02,137.93) ;
+		%Straight Lines [id:da9763051715174768] 
+		\draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ]   (100,101) -- (523.33,98) (245.97,95.97) -- (246.02,103.97)(391.96,94.93) -- (392.02,102.93) ;
+		
+		% Text Node
+		\draw (94,170.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+		% Text Node
+		\draw (519,163.4) node [anchor=north west][inner sep=0.75pt]    {$3$};
+		% Text Node
+		\draw (386,163.4) node [anchor=north west][inner sep=0.75pt]    {$2$};
+		% Text Node
+		\draw (240,163.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+		% Text Node
+		\draw (92,112.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$65$};
+		% Text Node
+		\draw (237,111.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$66$};
+		% Text Node
+		\draw (382,111.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$67$};
+		% Text Node
+		\draw (513,112.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$68$};
+		% Text Node
+		\draw (56,111.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$x$};
+		% Text Node
+		\draw (94,77.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$60$};
+		% Text Node
+		\draw (238,76.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$61$};
+		% Text Node
+		\draw (384,76.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$62$};
+		% Text Node
+		\draw (515,77.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$63$};
+		% Text Node
+		\draw (58,76.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$y$};
+		
+		
+	\end{tikzpicture}
+\end{center}
+
+$$\qx[3]{65:60} = 1 - \px[3]{65:60} = 1 - \px[3]{65} \cdot \px[3]{60} = 1 - \left( \frac{\lx{68}}{\lx{65}}\right) \left(\frac{\lx{63}}{\lx{60}} \right)$$
+
+$$= 1 - \left( \frac{41.351}{43.302}\right) \left(\frac{46.580}{47.260} \right) = 0.06041 = \boxed{6.041} \%$$
+
+\subsection{Último sobreviviente}
+
+Estatus que falla cuando {\color{red} TODAS} las personas del grupo mueren. \\
+
+
+$$T_{\joint{xy}} = \max(T_x, T_y)\hspace{1cm} \text{Tiempo futuro de vida del grupo}$$ 
+
+$$\px[t]{\joint{xy}} = Pr[ \text{ al menos } (x) \text{ o } (y) \text{ esten con vida } t \text{ años } ] =Pr[T_{\joint{xy}} > t]$$
+
+$$\qx[t]{\joint{xy}} = Pr[ \text{ al menos } (x) \text{ y } (y) \text{ mueran en } t \text{ años } ] =Pr[T_{\joint{xy}} \leq t]
+$$\\
+
+
+
+\textbf{Relación}
+
+\begin{enumerate}
+	\item Si $(x)$ muere primero $\rightarrow T_x = T_{xy} \therefore T_y = T_{\joint{xy}}$
+	\item Si $(y)$ muere primero $\rightarrow T_y = T_{xy} \therefore T_x = T_{\joint{xy}}$
+\end{enumerate}
+
+\vspace{1cm}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+	%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+	
+	%Straight Lines [id:da4363365428126367] 
+	\draw    (46,125) -- (486.33,122.67) (195.98,120.21) -- (196.02,128.21)(345.97,119.41) -- (346.02,127.41) ;
+	\draw [shift={(486.33,122.67)}, rotate = 179.7] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+	\draw [shift={(46,125)}, rotate = 179.7] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+	%Straight Lines [id:da5570077513947393] 
+	\draw  [dash pattern={on 0.84pt off 2.51pt}]  (345.33,160.67) -- (345.33,201.67) ;
+	%Straight Lines [id:da9209038411868883] 
+	\draw  [dash pattern={on 0.84pt off 2.51pt}]  (194.33,160.67) -- (194.33,175.67) ;
+	
+	% Text Node
+	\draw (160,96.4) node [anchor=north west][inner sep=0.75pt]    {$T_{x} \ =\ T_{xy}$};
+	% Text Node
+	\draw (307,95.4) node [anchor=north west][inner sep=0.75pt]    {$T_{y} \ =\ T_{\overline{xy}}$};
+	% Text Node
+	\draw (31,139.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$x,\ y$};
+	% Text Node
+	\draw (31,173.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 65; green, 117; blue, 5 }  ,opacity=1 ]  {$x:\ y$};
+	% Text Node
+	\draw (37,213.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{xy}$};
+	% Text Node
+	\draw (169,141) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {$\displaystyle x\ \text{Muere}$};
+	% Text Node
+	\draw (162,177) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 65; green, 117; blue, 5 }  ,opacity=1 ] [align=left] {$\displaystyle x:y\ \text{Muere}$};
+	% Text Node
+	\draw (313,139) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {$\displaystyle y\ \text{Muere}$};
+	% Text Node
+	\draw (312,207.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{xy} \ \text{Muere}$};
+	% Text Node
+	\draw (444,170.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$T_{x} \ +\ T_{y} \ =\ T_{xy} \ +\ T_{\overline{xy}}$};
+	
+	
+\end{tikzpicture}
+
+$${\color{blue}\Rightarrow \px[t]{x} + \px[t]{y} = \px[t]{xy} + \px[t]{\joint{xy}}}$$
+
+$${\color{red}\Rightarrow \px[t]{\joint{xy}} = \px[t]{x} + \px[t]{y} - \px[t]{xy}}$$
+
+
+\begin{center}
+	(La fórmula anterior es una aplicación del teorema de inclusión exclusión)
+\end{center}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo:}
+
+\vspace{0.2cm}
+	
+	\[
+		\px[2]{5} = 0{.}9 \text{ y } 	\px[3]{77} = 0{.}8
+	\]
+
+Para dos variables independientes calcular: 
+	
+	\begin{enumerate}[label = \alph*)]
+		\item $\px[2]{\joint{75:77}} = \px[2]{\joint{75}} + \px[2]{\joint{75}} - \px[2]{75:75} = 2(\px[2]{75}) - (\px[2]{75})^2 = 2(0.9) - (0.9)^2 = 0.99$
+		\item $\px[3]{\joint{77:77}} = \px[3]{77} + \px[3]{77} - \px[3]{77:77} = 2(0.8) - (0.8)^2 = 0.96$
+		\item $\px[5]{\joint{75:75}} = \px[5]{75} + \px[5]{75} - \px[5]{75:75} = 2(\px[2]{75} \cdot \px[3]{77}) - (\px[2]{75} \cdot \px[3]{77})^2 = 2(0.9 \cdot 0.8) - (0.9 \cdot 0.8)^2 = 0.9216$
+	\end{enumerate}
+
+\begin{advertencia}
+	
+	\textbf{Nota:} es preciso que recuerdes que efectuar la siguiente operación no es válido: 
+	
+	\[
+		\px[5]{\joint{75:75}} = \px[2]{\joint{75:75}} \cdot \px[3]{\joint{77:77}} = 
+		0.99 \cdot 0.96 = 
+		.9504 
+		\neq 0.9216	
+	\]
+\end{advertencia}
+
+\vspace{0.2cm}
+
+\textbf{Ejercicio:}
+
+\vspace{0.2cm}
+
+\begin{center}
+	\begin{tabular}{c|c|c}
+		
+		$x$ & $\qx{x}^m$ & $\qx{x}^t$  \\
+		\hline
+		80 & 0.1 & 0.07   \\
+		81 & 0.12 & 0.09  \\
+		82 & 0.14 & 0.11   \\
+		83 & 0.16 & 0.13   \\
+		84 & 0.18 & 0.15   \\
+		
+	\end{tabular}
+\end{center}
+
+Juan y laura son pareja, Juan tiene 82, Laura 80 y tienen vidas independientes, se nos pide calcular la probabilidad de que la segunda muerte ocurra durante el 3er año. 
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\vspace{2cm}
+
+\begin{center}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+	%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+	
+	%Straight Lines [id:da8315110163366394] 
+	\draw    (114,141) -- (526.33,140.67) (254,136.89) -- (254,144.89)(394,136.77) -- (394,144.77) ;
+	\draw [shift={(526.33,140.67)}, rotate = 179.95] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+	\draw [shift={(114,141)}, rotate = 179.95] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+	%Shape: Rectangle [id:dp8600438542835096] 
+	\draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=0.55 ] (395.33,135.67) -- (528.33,135.67) -- (528.33,146.67) -- (395.33,146.67) -- cycle ;
+	%Shape: Brace [id:dp044101165379452745] 
+	\draw   (113,184) .. controls (113.01,188.67) and (115.34,191) .. (120.01,190.99) -- (244.18,190.84) .. controls (250.85,190.83) and (254.18,193.16) .. (254.18,197.83) .. controls (254.18,193.16) and (257.51,190.83) .. (264.18,190.82)(261.18,190.82) -- (388.34,190.66) .. controls (393.01,190.66) and (395.34,188.33) .. (395.33,183.66) ;
+	
+	% Text Node
+	\draw (108,152.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+	% Text Node
+	\draw (521,151.4) node [anchor=north west][inner sep=0.75pt]    {$3$};
+	% Text Node
+	\draw (389,150.4) node [anchor=north west][inner sep=0.75pt]    {$2$};
+	% Text Node
+	\draw (249,150.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.2cm}
+
+$$\qx[2|1]{\joint{82:80}} = \px[2]{\joint{82:80}} - \px[3]{\joint{82:80}} = \underbrace{ \px[2]{82} + \px[2]{80} - \px[2]{82} \cdot \px[2]{80}}_{\px[3]{\joint{82:80}}} - \underbrace{[\px[3]{82} + \px[3]{80} - \px[3]{82} \cdot \px[3]{80} ]}_{\px[2]{\joint{82:80}}}$$
+
+$$\px[2]{82} = (1 - \qx{82}) (1- \qx{83}) = \px{82} \cdot \px{83}$$
+
+$$\px[2]{82} = (1 - 0{.}14) (1 - 0{.}16) = 0{.}7224$$
+
+$$\px[2]{80} = (1 - \qx{80}) (1 - \qx{84})$$
+
+$$(1- 0{.}07)(1 - 0{.}09) = 0{.}8463$$
+
+$$\px[3]{82} = (1 - \qx{82})(1 - \qx{85})(1 - \qx{84}) = (1 - 0{.}14) ( 1 - 0{.}16) ( 1 - 0{.}18) = 0{.}592368$$
+
+$$\px[3]{80} = (1 - \qx{80}) (1 - \qx{81}) (1 - \qx{82}) = (1 - 0{.}07) (1 - 0{.}09) ( 1 - 0{.}11) = 0{.}753207$$
+
+Por lo que: 
+
+$$\qx[2|1]{\joint{82:80}} = 0{.}7224 + 0{.}8463 - (0{.}7224 \cdot 0{.}8463) - [0{.}592368 + 0{.}753207 - (0{.}592368 \cdot 0{.}753207)] = 0{.}0579336042$$
+
+\subsection{Beneficios de vidas conjuntas}
+
+Seguro de vida entera, continuo, vida conjunta
+
+$$\Ax*{xy} = \int_{0}^{\infty} e^{-\delta t} \cdot \px[t]{xy}  \cdot \mu_{xy} dt = \int_{0}^{\infty} e^{-\delta t} \cdot \px[t]{xy} (\mu_x + \mu_y) dt$$
+
+Anualidad conjunta continua
+
+$$\bar{a}_{xy} = \int_0 ^{\infty} e ^{- \delta t} \px[t]{xy} dt$$
+
+\textbf{Recordatorio:} 
+
+$$a_{xy} = \frac{1 - \Ax*{xy}}{\delta}$$
+
+\subsection{Beneficios de último sobreviviente} 
+
+$$\Ax*{\joint{xy}} = \Ax*{x} + \Ax*{y} - \Ax*{xy}$$
+
+$$\bar{a}_{\joint{xy}} = \bar{a}_x + \bar{a}_y - \bar{a}_{xy}$$
+
+$$\bar{a}_{\joint{xy}} = \frac{1 - \Ax*{\joint{xy}}}{\delta}$$
+
+\subsection{Beneficios de temporales} 
+
+$$\Ax*{\tilde{x}:\endow{y}{n}} = \int_0 ^n e^{- \delta t} \px[t]{xy} (\mu_x + \mu_y) dt$$
+
+$$\bar{a}_{\tilde{x}:\endow{y}{n}} = \int_0 ^n e^{- \delta t} \px[t]{xy} dt$$
+
+Seguro ultimo sobreviviente 
+
+$$\Ax*{\tilde{\joint{x:y}}:\actuarialangle{n}} = \bar{a}_{\term{x}{n}} + \bar{a}_{\term{y}{n}} - \bar{a}_{x:\tilde{y}:\actuarialangle{n}}$$
+
+Anualidad ultimo sobreviviente
+
+$$ \bar{A}_{\tilde{\joint{x:y}}:\actuarialangle{n}} $$
+
+Relación: 
+
+$$\bar{a}_{x:y:\actuarialangle{n}} = \frac{1 - \Ax*{xy:\actuarialangle{n}}}{\delta}$$
+
+Relación:
+%$$\bar{a}_{\joint{xy}:\actuarialangle{n} = \frac{1 - \Ax*{\joint{xy}:\actuarialangle{n}}}{\delta}$$
+
+
+\textbf{Ejemplo:}
+
+Sean $(x)$ y $(y)$ dos vidas independientes con fuerzas de mortalidad constantes
+
+\[
+	\mu_x = 0{.}002 \quad \mu_y = 0{.}004
+\] 
+
+y dada una fuerza de interés
+
+\[
+	\delta = 0{.}05
+\] 
+
+Se desea estimar el \textbf{Valor Presente Actuarial (VPA)} de un beneficio de \$ 500{,}000 bajo distintos esquemas:
+
+\vspace{0.2cm}
+
+\begin{enumerate}[label =\alph*)]
+	\item Vida entera al momento de la primera muerte.
+	\item Vida entera al momento de la segunda muerte.
+	\item Temporal de 25 años pagadero al momento de la primer muerte. 
+	\item Temporal de 25 a;os pagadero al momento de la segunda muerte. 
+\end{enumerate}
+
+	\vspace{0.2cm}
+
+	\textbf{Fórmulas bajo fuerza de mortalidad constante}
+	
+	\vspace{0.2cm}
+	
+	Para la \textbf{vida conjunta} (primer fallecimiento):
+	
+	\[
+	\mu_{xy} = \mu_x + \mu_y
+	\]
+	
+	\[
+	\overline{A}_{xy}
+	=
+	\frac{\mu_x + \mu_y}{\mu_x + \mu_y + \delta}
+	\]
+	
+	\[
+	\overline{A}_{xy:\angl{n}}
+	=
+	\frac{\mu_x + \mu_y}{\mu_x + \mu_y + \delta}
+	\left(
+	1 - e^{-n(\mu_x+\mu_y+\delta)}
+	\right)
+	\]
+	
+	Para una vida individual:
+	
+	\[
+	\overline{A}_x
+	=
+	\frac{\mu_x}{\mu_x+\delta}
+	\qquad
+	\overline{A}_y
+	=
+	\frac{\mu_y}{\mu_y+\delta}
+	\]
+	
+	Para el \textbf{último sobreviviente} (segunda muerte):
+	
+	\[
+	\overline{A}_{\overline{xy}}
+	=
+	\overline{A}_x
+	+
+	\overline{A}_y
+	-
+	\overline{A}_{xy}
+	\]
+	
+	\vspace{0.5cm}
+	
+	\textbf{Resolución del ejercicio}
+	
+	\vspace{0.2cm}
+	
+	\textbf{a) Vida entera pagadera al momento de la primera muerte}
+	
+	\[
+	\overline{A}_{xy}
+	=
+	\frac{0.002+0.004}{0.002+0.004+0.05}
+	=
+	\frac{0.006}{0.056}
+	=
+	0.1071429
+	\]
+	
+	\[
+	VPA
+	=
+	500{,}000
+	\times
+	0.1071429
+	=
+	53{,}571.42
+	\]
+	
+	\textbf{b) Vida entera pagadera al momento de la segunda muerte}
+	
+	\[
+	\overline{A}_{\overline{xy}}
+	=
+	\overline{A}_x
+	+
+	\overline{A}_y
+	-
+	\overline{A}_{xy}
+	\]
+	
+	\[
+	=
+	\frac{0.002}{0.002+0.05}
+	+
+	\frac{0.004}{0.004+0.05}
+	-
+	\frac{0.006}{0.056}
+	\]
+	
+	\[
+	=
+	0.0384615
+	+
+	0.0740741
+	-
+	0.1071429
+	=
+	0.0053927
+	\]
+	
+	\[
+	VPA
+	=
+	500{,}000
+	\times
+	0.0053927
+	=
+	2{,}696.37
+	\]
+	
+	\textbf{c) Seguro temporal 25 años a la primera muerte}
+	
+	\[
+	\overline{A}_{xy:\angl{25}}
+	=
+	\frac{0.006}{0.056}
+	\left(
+	1 - e^{-25(0.056)}
+	\right)
+	\]
+	
+	\[
+	=
+	0.1071429
+	\left(
+	1 - e^{-1.4}
+	\right)
+	\]
+	
+	\[
+	=
+	0.1071429
+	(0.7534)
+	=
+	0.080721
+	\]
+	
+	\[
+	VPA
+	=
+	500{,}000
+	\times
+	0.080721
+	=
+	40{,}360.55
+	\]
+	
+	\textbf{d) Seguro temporal 25 años a la segunda muerte}
+	
+	\[
+	\overline{A}_{\overline{xy}:\angl{25}}
+	=
+	\overline{A}_{x:\angl{25}}
+	+
+	\overline{A}_{y:\angl{25}}
+	-
+	\overline{A}_{xy:\angl{25}}
+	\]
+	
+	donde
+	
+	\[
+	\overline{A}_{x:\angl{25}}
+	=
+	\frac{0.002}{0.052}
+	\left(
+	1 - e^{-25(0.052)}
+	\right)
+	\]
+	
+	\[
+	\overline{A}_{y:\angl{25}}
+	=
+	\frac{0.004}{0.054}
+	\left(
+	1 - e^{-25(0.054)}
+	\right)
+	\]
+	
+	y
+	
+	\[
+	\overline{A}_{xy:\angl{25}}
+	=
+	\frac{0.006}{0.056}
+	\left(
+	1 - e^{-25(0.056)}
+	\right)
+	\]
+	
+	\vspace{0.5cm}
+	
+	\textbf{Tarea}
+	
+	\vspace{0.2cm}
+	
+	Para un beneficio de \$25{,}000:
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Anualidad vitalicia mientras ambas personas estén con vida.
+		\item Anualidad vitalicia mientras al menos una persona esté con vida.
+		\item Anualidad temporal 25 años bajo vida conjunta.
+		\item Anualidad temporal 25 años bajo último sobreviviente.
+	\end{enumerate}
+	
+	Para el caso discreto
+	
+	\[
+		\Ax{xy} = \sum_{k=0}^\infty v^k \Px[k]{xy}(1 - \Px{x+k:y+k})
+	\]
+
+	\[
+		\Ax{\joint{xy}} = \sum v^{k+1} \Px[k]{\joint{xy}} (1 - \Px{\joint{x+k:y+k}})
+	\]
+	
+	La relación mencionada anteriormente se respeta 
+	
+	\[
+		\Ax*{\joint{xy}} = \Ax{x} + \Ax{y} - \Ax{xy}
+	\]
+
+	Mientras que para los temporales se vería algo así: 
+	
+	\[
+		\Ax{\term{xy}{n}} = \sum_{k=0}^{n-1} v^{k+1} \cdot \qx[k|]{xy}
+	\]
+
+	\[
+	\Ax{\term{\joint{xy}}{n}} = \sum_{k=0}^{n-1} v^{k+1} \cdot \qx[k|]{\joint{xy}}
+	\]
+	
+	Para las anualidades sería: 
+	
+	\[
+		\ddot{a}_{xy} = \sum_{k=0}^\infty v^k \Px[k]{xy}
+	\]
+	
+	\[
+	\ddot{a}_{xy} = \sum_{k=0}^\infty v^k \Px[k]{xy}
+	\]
+	
+	\[
+	\ddot{a}_{\endow{x:y}{n}} = \sum_{k=0}^{n-1} v^k \Px[k]{xy}
+	\]
+	
+	\subsection{Valor de rescate}
+	
+	El monto que la aseguradora le otorga al asegurado en caso de cancelación asumir que la prima es nivelada o única. 
+	
+	El valor de rescate es la diferencia entre el valor esperado de obligaciones futuras de la aseguradora ej. El valor esperado de obligaciones futuras del asegurado por el pago de primas. 
+	
+	$$ \Vx[x]{\endow{x}{n}} = \Ax{\endow{x+t}{n-1}} - P \cdot N \hspace{.25cm} _{x:n} \ddot{a}_{\endow{x+t}{n-t}}$$
+	
+	Forma parte de los valores garantizados cuando el asegurado decide no continuar con el seguro, entonces se devuelve una parte de la reserva, siempre y cuando tenga 2 años. 
+	
+	En la vida real (Aplicación práctica), las aseguradoras manejan sus propias tablas de cancelación e idealmente cada producto debería tener su propia tabla de cancelación similar a una tabla de mortalidad, con las subsecuentes probabilidades de cancelación. 
+	
+	\begin{itemize}
+		\item Seguro saldado: Si el asegurado decide no seguir pagando su póliza (no más primas) pero desea seguir cubierto. 
+		\subitem El valor de rescate de ese momento puede servir para pagar el plazo que falte de transcurrir de la vigencia del contrato. 
+		\subsubitem Valor de rescate paga una cobertura a prima única por el mismo plazo pero menor suma asegurada. 
+		\subitem Respeta temporalidad. 
+		\subitem No más pago de primas. 
+		\subitem Menor Suma Asegurada (Lo que alcance con el valor de rescate).
+		\item Seguro prorrogado: El valor de rescate sirve para comprar un seguro
+		\subitem Misma suma asegurada. 
+		\subitem Mejor temporalidad. 
+		\subitem Sin pago de primas adicionales. 
+	\end{itemize}
+	
+	\section{Anualidades reversionarias}
+	
+	Anualidad para una persona y condicionada a la muerte de edad $x$. 
+	
+	$$ \ddot{a}_{x|y} = \ddot{a}_{y} - \ddot{a}_{xy}$$
+	
+	$$\ddot{a}_{y|x}  = \ddot{a}_{x} - \ddot{a}_{xy}$$
+	
+	Lo anterior significa que la anualidad se paga mientras $x$ viva. 
+	
+	\textbf{Ejercicio}
+	
+	Una pareja compra un seguro. El esposo tiene 55 años y su esposa 50. Los dos tienen acceso a una pensión. Si el muere antes, ella dejará de recibir dicha pensión. 
+	
+	El plan consiste en \$20,000 al principio de cada año. Estimar el VPA del beneficio. 
+	
+	$$M_x = 0.002 M_y = 0.003 \delta = 0.05$$
+	
+	\section{Decrementos Múltiples}
+	
+	Es un tipo de modelo en el que se tienen distintas causas por las que un individuo sale de un grupo. 
+
+	\begin{callout-azul}
+
+		\textbf{Ejemplo:}
+
+		Cuando alguna aseguradora necesita distinguir entre los mótivos por los que se está dando de baja a una u a otra persona, ya sea para aplicar exclusiones o beneficios adicionales; ej. Muerte (tanto natural como accidental), invalidez, vejez, etc. 
+
+			\end{callout-azul}
+	
+	Las causas son denotadas bajo este modelo con variables aleatorias $j$, por lo que ahora en este modelo tendremos ya no solo la variable aleatoría $T(x)$, sino que tendremos dos $T(x)$ y $J$. Por ende bajo este modelo la forma de expresar el tiempo futuro de vida de un modelo de decrementos múltiples en donde $(x)$ está sujeto a todas las posibles causas de salida $\tau$ se expresa como: 
+
+	$$T^{(\tau)}_{(x)}$$
+	
+	Para esto $j = 1, 2, \dots, m$ son las causas de salida (Total de $m$).
+	
+	De acuerdo a lo anterior y a la teoría de la probabilidad, podemos afirmar que tenemos entonces una distribución bivariada con por lo menos una de las variables aleatorias discretas $J$
+	
+	$P(T^{(\tau)}_{(x)} \leq t)$: Probabilidad de que $(x)$ salga o termine antes del tiempo $t$ por cualquier causa. 
+	
+	$P(J=j) = f_{J}(j)$: Probabilidad de que $(x)$ salga o termine por causa $j$ en cualquier momento. 
+	
+	% Aquí debería ir la gráfica de la función multivariada
+	
+	Al integrar, 
+	
+	$$ 
+	P(J=j) = \int_{0}^\infty f_{T^{(\tau)}_{(x)}, J} (t, j)dt
+	$$
+	
+	\[
+		= \sum^{m}_{j=1} f_{T^{(\tau)}_{(x)}, J} (t, j)
+	\]
+	
+	Sus respectivas funciones de densidad son: 
+	
+	Conjunta: $f_{T^{(\tau)}_{(x)}, J} = \px[t]{x}^{(\tau)} \mu_{x+t}^{(\tau)}$
+	
+	Marginal de t: $f_{T^{(\tau)}_{(x)}}(t) = \px[t]{x}^{(\tau)} \mu_{x+t}^{(\tau)}$
+	
+	Marginal de j: $P(J=j) = \qx[\infty]{x}^{(j)}$
+	
+	La condicional de $t$ dado $j$
+	
+	\[
+	f_{T(x)\mid J}(t \mid j)
+	=
+	\frac{f_{T(x),J}(t,j)}{P(J=j)}
+	=
+	\frac{{}_t p_x^{(j)} \, \mu_{x+t}^{(j)}}{q_x^{(j)}}
+	\]
+	
+	La condicional de $j$ dado $t$
+	
+	\[
+	f_{J \mid T(x)}(j \mid t)
+	=
+	\frac{f_{T(x),J}(t,j)}{f_{T(x)}(t)}
+	=
+	\frac{{}_t p_x^{(j)} \, \mu_{x+t}^{(j)}}{{}_t p_x \, \mu_{x+t}}
+	=
+	\frac{\mu_{x+t}^{(j)}}{\mu_{x+t}}
+	\]
+	
+	\textbf{Ejemplo}
+	
+	\[
+	f_{T_x^{(r)},J}(t,j) = j e^{-6t}
+		=
+	\begin{cases}
+		e^{-6t}, & j = 1 \\
+		2e^{-6t}, & j = 2 \\
+		3e^{-6t}, & j = 3
+	\end{cases}
+	\]
+	
+	\[
+	{}_{4|2} q_x^{(2)} = {}_4 p_x^{(r)} \cdot {}_2 q_{x+4}^{(2)}
+	\]
+	
+	\[
+	{}_{4|2} q_x^{(2)} = \int_{4}^{6} f_{T_x^{(r)},J}(t,2)\, dt
+	\]
+	
+	\[
+	f_{T_x^{(r)},J}(t,j) = {}_t p_x^{(r)} \, \mu_{x+t}^{(j)} = j e^{-6t}
+	\]
+	
+	Empleando lo anterior, podemos proceder: 
+	
+	\[
+	{}_{4|2} q_x^{(2)} 
+	= {}_4 p_x^{(\tau)} \cdot {}_2 q_{x+4}^{(2)}
+	= \int_{4}^{6} 2e^{-6t}\, dt
+	\]
+	
+	\[
+	= 2 \int_{4}^{6} e^{-6t}\, dt
+	= 2 \left[ \frac{e^{-6t}}{-6} \right]_{4}^{6}
+	\]
+	
+	\[
+	= -\frac{1}{3} \left( e^{-36} - e^{-24} \right)
+	= \frac{e^{-24} - e^{-36}}{3}
+	\]
+	
+	\[
+	\approx 0.00002048
+	\]
+	
+
+	\begin{figure}[h]
+		\caption{Tabla a emplear para la siguiente clase}
+	\[
+	\begin{array}{c|cccccc}
+		\text{Año } k & 0 & 1 & 2 & 3 & 4 & 5 \\
+		\hline
+		q^{(1)}_{x+k} & 0.003 & 0.004 & 0.005 & 0.006 & 0.007 & 0.008 \\
+		q^{(2)}_{x+k} & 0.140 & 0.120 & 0.100 & 0.080 & 0.060 & 0.040 \\
+		q^{(r)}_{x+k} & 0.143 & 0.124 & 0.105 & 0.086 & 0.067 & 0.048 \\
+	\end{array}
+	\]
+	\end{figure}
+
+\end{document}          
