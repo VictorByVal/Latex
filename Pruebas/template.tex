@@ -4,6 +4,9 @@
 % Paquetes esenciales para compatibilidad
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+$if(lang)$
+\usepackage[$lang$]{babel}
+$endif$
 \usepackage{lmodern}
 \usepackage{geometry}
 \geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=2.5cm,rmargin=2.5cm}
@@ -16,6 +19,19 @@
 \makeatother
 \setkeys{Gin}{width=\maxwidth}
 
+% --- Para listas ---
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
+
+% --- Soporte para Tablas (Añade esto) ---
+\usepackage{longtable} % Para tablas que ocupan más de una página
+\usepackage{booktabs}  % Para líneas horizontales elegantes (\toprule, \midrule, etc.)
+\usepackage{array}     % Para un mejor manejo de columnas y anchos
+
 % --- Hipervínculos ---
 \usepackage{hyperref}
 \hypersetup{
@@ -27,13 +43,20 @@
   breaklinks=true
 }
 
+% --- Para completo soporte de todas las herramientas matemáticas que empleo 
+\usepackage{actuarialangle}
+\usepackage{actuarialsymbol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+
 % --- Metadatos (Título, Autor, Fecha) ---
 $if(title)$
 \title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
 $endif$
 
 $if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
+\author{Victor Gabriel Vazquez Montes $for(author)$$author$$sep$ \and $endfor$}
 $endif$
 
 \date{$if(date)$$date$$else$\today$endif$}
@@ -48,15 +71,23 @@ $endif$
 {\bfseries\LARGE Universidad Cristóbal Colón \par}
 \vspace{1cm}
 {\scshape\Large Licenciatura en Actuaría \par}
+\vspace{1cm}
+{\itshape\Large $if(tipo)$$tipo$$else$ Tipo de proyecto $endif$ \par}
 \vspace{3cm}
 {\scshape\Huge $if(title)$$title$$else$ T\'itulo del proyecto $endif$ \par}
 \vspace{3cm}
-{\itshape\Large Tipo de proyecto \par}
+$if(materia)$
+{\Large $materia$ \par}
+$endif$	
+\vfill
+$if(docente)$
+{\Large Docente: $docente$ \par}
+$endif$
 \vfill
 {\Large Autor: \par}
 {\Large Victor Gabriel Vázquez Montes \par}
 \vfill
-{\Large \today \par}
+{\Large $if(date)$$date$$else$\today $endif$ \par}
 \end{titlepage}
 
 $if(abstract)$
@@ -65,8 +96,12 @@ $abstract$
 \end{abstract}
 $endif$
 
+% --- Para un toc mejorado (elimina el color azul de los hipervínculos)
 $if(toc)$
-\tableofcontents
+{
+  \hypersetup{linkcolor=black} % Cambiamos el color a negro solo aquí
+  \tableofcontents
+}
 \newpage
 $endif$
 
