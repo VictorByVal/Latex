@@ -7,36 +7,15 @@
   author: "Victor Gabriel Vázquez Montes"
 )
 
+#set text(12pt)
+
 #set heading(numbering: "1.")
-#set par(justify:true)
+#set par(justify:true, spacing: 1em, leading: 1em)
 
-// Algunas definiciones propias 
+#set quote(block:true)
 
-// Creación de callouts personalizados (Para notas, teoremas y demás)
-
-#let callout(title: "Información", color: rgb("#2196F3"), body) = {
-  block(
-    width: 100%,
-    fill: color.lighten(95%),
-    stroke: 0.5pt + color.lighten(50%),
-    radius: 4pt,
-    clip: true,
-  )[
-    // Encabezado
-    #block(
-      fill: color.lighten(80%),
-      width: 100%,
-      inset: (x: 0.8em, y: 0.5em),
-      grid(
-        columns: (auto, 1fr),
-        gutter: 0.6em,
-        [*#title*]
-      )
-    )
-    // Contenido
-    #block(inset: 0.8em, body)
-  ]
-}
+#import "@preview/calloutly:1.0.0" : callout-style, callout, note, tip, important, warning, caution
+#show: callout-style.with(style: "minimal")
 
 #title()
 
@@ -48,9 +27,9 @@
 
 = Matemáticas Actuariales
 
-#callout(title: "Recordatorio para Examen", color: yellow)[
-  La reserva matemática $""_t V_x$ representa la obligación neta de la aseguradora en el tiempo $t$.
-]
+Las Matemáticas Actuariales son una rama especializada de las matemáticas aplicadas que se utilizan principalmente en la gestión de riesgos financieros en sectores como los seguros, las pensiones y las inversiones. Gracias a ellas, los actuarios pueden modelar escenarios futuros, calcular probabilidades de eventos y diseñar productos financieros que minimicen riesgos e incrementen rentabilidad.
+
+En este primer curso o acercamiento a Matemáticas Actuariales se hablará acerca de los fundamentos de la misma, principalmente comprendiendo la teoría de la que derivan, su notación propia, el concepto y algunas aplicaciones de tablas de mortalidad, hasta llegar a los seguros y anualidades. 
 
 == Notación probabilística
 
@@ -59,6 +38,12 @@
 == Distribución de la vida futura
 
 == Notación Actuarial
+
+Es diferente la notación que se emplea en la actuaría a aquella con la que los padres de la probabilidad empezaron a explorar las funciones de supervivencia y mortalidad. 
+
+En actuaría existen notaciones equivalentes a las funciones definidas con anterioridad: 
+
+
 
 === Glosario
 
@@ -84,7 +69,7 @@
 
 === Glosario y Notación
 
-== Anualidades Contingentes
+== Aualidades Contingentes
 
 == Edades fraccionarias de mortalidad
 
@@ -112,7 +97,7 @@
 
 Es un tipo de modelo en el que se tienen distintas causas por las que un individuo sale de un grupo.
 
-#callout(title: "Ejemplo", color:purple)[Cuando alguna aseguradora necesite distinguir entre los mótivos por los que se está dando de baja a una u otra persona, ya sea para aplicar exclusiones o beneficios adicionales; ej. Muerte (tanto natural como accidental), invalidez, vejez, etc.] 
+#callout(title: "Ejemplo", color:purple, icon:"🧮")[Cuando alguna aseguradora necesite distinguir entre los mótivos por los que se está dando de baja a una u otra persona, ya sea para aplicar exclusiones o beneficios adicionales; ej. Muerte (tanto natural como accidental), invalidez, vejez, etc.] 
 
 Las causas son denotadas bajo este modelo con variables aleatorias $j$, por lo que ahora en este modelo tendremos ya no solo la variable aleatoria $T(x)$, sino que tendremos dos $T(x)$ y $J$. Por ende bajo este modelo la forma de expresar el tiempo futuro de vida de un modelo de decrementos múltiples en donde $(x)$ está sujeto a todas las posibles causas de salida $tau$ se expresa como: 
 
