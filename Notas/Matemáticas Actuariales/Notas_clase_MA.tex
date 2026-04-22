@@ -1513,9 +1513,41 @@ Se desea estimar el \textbf{Valor Presente Actuarial (VPA)} de un beneficio de \
 	\approx 0.00002048
 	\]
 	
-
+	\subsection{Tablas de Mortalidad}
+	
+	Consideremos un grupo de personas de edad $(x)$ que están sujetas a $(m)$ posibles causas de decremento. 
+	
+	$$ \lx{x}^{(\tau)} \hspace{1cm} \lx{} \text{\# De personas} \hspace{1cm} \tau \text{: Todas las posibles causas de salida}$$
+	
+	$$ \dx{x}^{(\tau)} \hspace{1cm} \text{\# de personas que dejan de estar activos por cualquier causa entre edad $x$ y $x+1$}$$
+	
+	$$ \dx{x}^{(j)} \hspace{1cm} \text{\# de personas que dejan de estar activos por ``j'' causa determinada $j=1, \dots , m$} $$
+	
+	Recordemos que 
+	
+	$$ \qx{x} = \frac{dx}{\lx{x}} = 1 - \px{x} = 1 - \frac{\lx{x+1}}{\lx{x}} = \frac{\lx{x} - \lx{x+1}}{\lx{x}}$$
+	
+	$\px{x} = \frac{\lx{x+1}}{\lx{x}}$ Ahora tenemos $\lx{x}^{(\tau)}, \dx{x}^{(\tau)} y \dx{x}^{(j)}$
+	
+	$\qx{x}^{(\tau)} = \frac{\dx{x}^{(tau)}}{\lx{x}^{(\tau)}}$ Probabilidad de que salga del grupo en el siguiente año por cualquier causa.
+	
+	$\qx{x}^{(j)} = \frac{\dx{x}^{(j)}}{\lx{x}^{(\tau)}}$ Probabilidad de que una persona salga del grupo por una específica causa $j$ siendo $j= 1, \dots, m$. 
+	
+	\textcolor{red}{ Ojo: Las personas estan sujetas a $\tau$ (todas las posibles causas de salida)}
+	
+	$\dx{x}^{(\tau)} = \sum_{j=1}^m \dx{x}^{(i)}$ Lo que quiere decir que un individuo sólo puede salir por una de todas las posibles causas. 
+	
+	\textcolor{red}{Total de personas en un año entre $x$ y $x+1$ es la suma de todos los decrementos de las ``$m$'' razones de salida.}
+	
+	$$\qx[n|]{x}^{(\tau)} = \px[n]{x}^{(\tau)} \cdot \qx{x+n}^{(\tau)} = \frac{\lx{x+n}^{(\tau)}}{\lx{x}^{(\tau)}} \cdot \frac{\dx{x+n}^{(\tau)}}{\lx{x+n}^{(\tau)}} = \frac{\dx{x+n}^{(\tau)}}{\lx{x}^{(\tau)}}$$
+	
+	Esto es la probabilidad de que $(x)$ salga por cualquier causa entre $x+n$ y $x+n+1$ 
+	
+	$$\qx[n|]{x}^{(j)} = \px[n]{x}^{(\tau)} \cdot \qx{x+n}^{(j)} = \frac{\lx{x+n}^{(\tau)}}{\lx{x}^{(\tau)}} \cdot \frac{\dx{x+n}^{(j)}}{\lx{x+n}^{(\tau)}} = \frac{\dx{x+n}^{(j)}}{\lx{x}^{(\tau)}}$$
+	
 	\begin{figure}[h]
-		\caption{Tabla a emplear para la siguiente clase}
+
+	\caption{Tabla a emplear para la siguiente clase}
 	\[
 	\begin{array}{c|cccccc}
 		\text{Año } k & 0 & 1 & 2 & 3 & 4 & 5 \\
@@ -1526,5 +1558,6 @@ Se desea estimar el \textbf{Valor Presente Actuarial (VPA)} de un beneficio de \
 	\end{array}
 	\]
 	\end{figure}
-
+	
 \end{document}          
+}
