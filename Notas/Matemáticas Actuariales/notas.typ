@@ -7,6 +7,8 @@
   author: "Victor Gabriel Vázquez Montes"
 )
 
+#set list(indent: .80cm)
+
 #set text(12pt)
 
 #set heading(numbering: "1.")
@@ -126,5 +128,77 @@ La condicional de $j$ dado $t$ resulta en la siguiente expresión:
 
 $ f_(J|T(x))(j|t) = (f_(T(x), J)(t,j)) / (f_(T(x))(t)) = (""_t p_x^((j)) #h(.1cm) mu_(x+t)^((j))) / (""_t p_x^ #h(.3cm) mu_(x+t)) = mu_(x+t)^((j)) / mu_(x+t) $
 
+*Ejemplo*
+
+$ f_(T(x) ^ ((tau)), J) (t,j) = j e ^(-6t) = cases(e ^(-6t) " para " j = 1, 
+2 e ^ (-6t) "para"  j = 2, 
+3 e ^(-6t) "para" j = 3) $
+
+$ ""_(4|2) q_x ^ ((2)) = ""_4 p_x ^ ((tau)) dot ""_2 q_(x+4) ^ ((2)) $
+
+$ ""_(4|2) q_x ^ ((2)) = integral_4 ^6 f_(T(x) ^ (tau), J) (t, 2) d t $
+
+$ f_(T(x)^(tau), J) (t, j) = ""_t p_x ^(tau) #h(.2cm) mu_(x+t) ^((j)) = j e^(-6t) $
+
+$ 2 integral_4 ^6 d t = 2 [e ^(6t)/6]^6_4 $
+
+$ = - 1/3 (e ^(-36) - e ^(-24)) = (e ^(-24)- e ^(-36))/3 $
+
+$ approx 0.00002048 $
+
 === Tablas de Mortalidad de Decrementos Múltiples
 
+Consideremos un grupo de personas de edad $(x)$ que están sujetas a $(m)$ posibles, bajo ese modelo se pueden definir columnas con las siguientes variables: 
+
+- $ell_x^((tau))$: Donde se debe interpretar a $ell$ como el número de personas y a $tau$ como todas las posibles causas por las que esas personas podrían salir del grupo. 
+  - $(x)$ mantiene su valor recurrente a lo largo de todo el curso de Matemáticas Actuariales. 
+  - Por ende una interpretación más clara de lo que significa esto es _"La cantidad personas vivas a edad $x$ que tenemos en el grupo, dadas $tau$ posibles causas de salida"_. 
+- $d_x ^((tau))$: Esto contempla la cantidad de personas que dejan de estar activas por cualquier causa entre edad $x$ y $x+1$, dadas las $tau$ causas de salida.  
+  - En cierto sentido se podría decir que $d_x$ mantiene su significado original de las tablas de mortalidad de los modelos más simples. 
+- $d_x ^((j))$: Esto contempla el número de personas que dejan de estar activos por "$j$" causa determinada, con causas $j = 1, dots, m$. 
+
+Ahora, de los modelos más simples de las tablas de mortalidad, debemos de recordar algunos principios para la construcción de los modelos de decrementos múltiples, tal es el caso de las distintas formas en las que se puede obtener la probabilidad de muerte: 
+
+$ q_x = d_x / ell_x = 1 - p_x = 1 - (ell_(x+1)) / ell_x = (ell_x - ell_(x+1))/ell_x $
+
+Solo que ahora se deben contemplar algunas características adicionales: 
+
+- $p_x = (ell_(x+1)) / ell_x$, se mantiene, solo que ahora tenemos $ell_x ^((tau)), d_x^((tau))$ y $d_x^((j))$. 
+- $q_x ^((tau)) = d_x ^((tau)) / ell_x ^((tau))$: Bajo este modelo significa _"La probabilidad de que alguna persona salga del grupo en el siguiente año por cualquier causa"_. 
+- $q_x^((j))$: Que significa _"La probabilidad de que alguna persona salga del grupo en el siguiente año por la causa específica $j$"_, siendo $j = 1, dots , m$. 
+  - En este modelo cada $(j)$ puede ser especificada en una columna diferente. 
+  - #text(fill: red)[Se debe recordar que todas las personas están sujetas a $tau$ (Todas las posibles causas de salida).] 
+- $d_x ^((tau)) = sum_(j=1)^m d x^(i)$: Lo que quiere decir que un individuo solo puede salir por una de todas las posibles causas. 
+  - *En otras palabras*: #text(fill: red)[El total de personas en un año entre $x$ y $x+1$ es la suma de todos los decrementos de las "$m$" razones de salida.]
+    - Usamos mucho esta propiedad para la construcción de las tablas de mortalidad decrecientes, puesto que al sumar todas las $d_x ^((j))$ nos permite calcular la $d_x ^((tau))$. 
+
+Por lo tanto, para obtener la probabilidad de que $(x)$ salga por cualquier causa entre $x+n$ y $x+n+1$ efectuaremos: 
+
+$ ""_(n|) q_x ^((tau)) = ""_n p_x ^((tau)) dot q_(x+n)^((tau)) = ell_(x+n)^((tau)) / ell_x ^((tau)) dot d_(x+n) ^((tau)) / ell_(x+n) ^((tau)) = d_(x+n)^((tau)) / ell_x ^((tau)) $ 
+
+Mientras que para segmentar esa probabilidad por causa la formula se resume a: 
+
+$ ""_(n|) q_x ^((j)) = ""_n p_x ^((tau)) dot q_(x+n)^((j)) = ell_(x+n)^((tau))/ ell_x ^((tau)) dot d_(x+n)^((j)) / ell_(x+n)^((tau)) = d_(x+n)^((j)) / ell_x^((tau)) $
+
+#v(1cm)
+
+#set table(
+  stroke: (x, y) => if y == 0 {
+    (bottom: 0.7pt + black)
+  },
+  align: (x, y) => (
+    if x > 0 { center }
+    else { left }
+  )
+)
+
+#figure(caption: [Ejemplo básico de una tabla de mortalidad de Decrementos Múltiples])[
+  #table(columns: (auto, auto, auto, auto, auto, auto, auto), table.header(
+    [Año $k$], [0], [1], [2], [3], [4], [5]
+  ),[$q_(x+k)^((1))$], [0.003], [0.004], [0.005], [0.006], [0.007], [0.008],
+[$q_(x+k)^((2))$], [0.140], [0.120], [0.100], [0.080], [0.060], [0.040],
+[$q_(x+k)^((tau))$], [0.145], [0.124], [0.105], [0.086], [0.067], [0.048],
+  )
+]
+
+- Debes notar además en la tabla que $tau$ resulta en la suma de cada una de las $j$ subsecuentes #footnote[En dado caso de desear más información o un ejemplo más conciso, consultar la tabla elaborada en clase en excel]
